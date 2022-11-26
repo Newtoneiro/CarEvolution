@@ -18,14 +18,14 @@ FetchContent_Declare(
         GIT_TAG main
 )
 
-# Box2d
+## Box2d
 FetchContent_Declare(
         box2d
         GIT_REPOSITORY https://github.com/erincatto/box2d.git
         GIT_TAG main
 )
 
-FetchContent_MakeAvailable(SDL2)
+FetchContent_MakeAvailable(SDL2 box2d)
 
 
 get_filename_component(ROOT_DIR ${CMAKE_BINARY_DIR} DIRECTORY)
