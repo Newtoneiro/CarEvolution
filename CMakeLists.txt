@@ -11,13 +11,6 @@ if (EXISTS ${CMAKE_BINARY_DIR}/_deps)
 endif ()
 
 
-## SDL
-FetchContent_Declare(
-        SDL2
-        GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
-        GIT_TAG main
-)
-
 ## Box2d
 FetchContent_Declare(
         box2d
@@ -25,12 +18,14 @@ FetchContent_Declare(
         GIT_TAG main
 )
 
-FetchContent_MakeAvailable(SDL2 box2d)
+FetchContent_MakeAvailable(box2d)
 
+find_package(SDL2 REQUIRED)
+include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
 
 get_filename_component(ROOT_DIR ${CMAKE_BINARY_DIR} DIRECTORY)
 file(MAKE_DIRECTORY ${ROOT_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)
 
 add_executable(CarEvolution src/main.cpp)
-target_link_libraries(CarEvolution SDL2 box2d)
+target_link_libraries(CarEvolution box2d ${SDL2_LIBRARIES})
