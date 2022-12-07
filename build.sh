@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BUILD_DIR=cmake-build-debug
+BUILD_DIR=build
 
 if [ ! -d "./$BUILD_DIR" ]
 then
