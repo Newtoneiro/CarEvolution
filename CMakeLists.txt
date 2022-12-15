@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.22)
 project(CarEvolution)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -10,3 +10,7 @@ add_subdirectory(resources)
 
 add_executable(CarEvolution app/main.cpp)
 target_link_libraries(CarEvolution Resources box2d sfml-system sfml-graphics sfml-audio sfml-window)
+
+enable_testing()
+
+add_subdirectory(test)
