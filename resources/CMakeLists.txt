@@ -1,2 +1,2 @@
 set(CXX_CLANG_TIDY)
-add_library(Resources Circle.cpp Circle.h World.cpp World.h Figure.cpp Figure.h GroundElement.cpp GroundElement.hpp)
+add_library(Resources Circle.cc Circle.h World.cc World.h Figure.cc Figure.h GroundElement.cc GroundElement.h)

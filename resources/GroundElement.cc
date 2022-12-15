@@ -1,4 +1,4 @@
-#include "GroundElement.hpp"
+#include "GroundElement.h"
 #include "Figure.h"
 
 GroundElement::GroundElement(float xPos) {

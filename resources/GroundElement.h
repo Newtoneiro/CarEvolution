@@ -23,4 +23,4 @@ protected:
     b2Body *_body{};
 };
 
-#endif //CAREVOLUTION_GROUNDELEMENT_HPP
+#endif //CAREVOLUTION_GROUNDELEMENT_H

@@ -4,5 +4,7 @@
 /include
 /lib
 /build
-/CmakeFiles
+/CMakeFiles
 /.vscode
+CMakeCache.txt
+cmake_install.cmake
