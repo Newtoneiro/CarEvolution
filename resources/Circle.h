@@ -5,7 +5,11 @@
 #include "box2d/box2d.h"
 
 #include "Figure.h"
-
+/*
+Autor: Bartosz Latosek
+Cel: Plik naglowkowy kola - przykladowego obiektu
+     wykorzystywanego do symulacji fizyki
+*/
 class Circle : public Figure {
 public:
   explicit Circle(float radius);

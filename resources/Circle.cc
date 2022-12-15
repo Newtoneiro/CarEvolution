@@ -1,5 +1,10 @@
 #include "Circle.h"
 
+/*
+Autor: Bartosz Latosek
+Cel: Plik z implementacja kola - przykladowego obiektu
+     wykorzystywanego do symulacji fizyki
+*/
 Circle::Circle(float radius, float posX = 0.0f, float posY = 0.0f)
     : _radius(radius), Figure() {
   _bodyDef.position.Set(posX, posY);

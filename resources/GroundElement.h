@@ -4,7 +4,12 @@
 #include "SFML/Graphics/Shape.hpp"
 #include <box2d/b2_body.h>
 #include <box2d/b2_math.h>
-
+/*
+Autor: Radoslaw Kostrzewski
+Cel: Plik naglowkowy podlogi - staly element
+     bedacy przeszkoda dla dynamicznych obiektow i
+     oddzialujacy z nimi
+*/
 class GroundElement {
 
 public:

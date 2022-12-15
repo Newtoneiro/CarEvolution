@@ -8,6 +8,11 @@
 #include "../resources/Circle.h"
 #include "../resources/World.h"
 
+/*
+Autor: Radoslaw Kostrzewski
+Cel: Glowny plik aplikacji, laczy ze soba wszystkie
+     potrzebne komponenty i uruchamia przykladowy program
+*/
 constexpr unsigned int WINDOW_WIDTH_PIXELS = 600;
 constexpr float WINDOW_WIDTH = 10.0;
 constexpr unsigned int PIXELS_PER_UNIT = WINDOW_WIDTH_PIXELS / WINDOW_WIDTH;

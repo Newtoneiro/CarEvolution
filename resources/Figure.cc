@@ -1,5 +1,10 @@
 #include "Figure.h"
 
+/*
+Autor: Bartosz Latosek
+Cel: Plik implementujacy domyslna figure
+     sluzaca do prezentacji fizyki
+*/
 Figure::Figure() { _bodyDef.type = b2_dynamicBody; }
 
 Figure::~Figure() = default;

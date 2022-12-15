@@ -3,7 +3,11 @@
 
 #include "SFML/Graphics.hpp"
 #include "box2d/box2d.h"
-
+/*
+Autor: Bartosz Latosek
+Cel: Plik naglowkowy domyslna figure
+     sluzaca do prezentacji fizyki
+*/
 class Figure {
 public:
   Figure();

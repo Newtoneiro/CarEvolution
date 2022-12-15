@@ -5,7 +5,11 @@
 
 #include "Figure.h"
 #include "GroundElement.h"
-
+/*
+Autor: Radoslaw Kostrzewski
+Cel: Plik naglowkowy swiata - przestrzen, w ktorej
+     znajduja sie i oddzialowywuja ze soba obiekty
+*/
 class World {
 public:
   explicit World(const b2World &world);
