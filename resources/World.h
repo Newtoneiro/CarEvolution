@@ -6,9 +6,9 @@
 #include "Figure.h"
 #include "GroundElement.h"
 /*
-Autor: Radoslaw Kostrzewski
-Cel: Plik naglowkowy swiata - przestrzen, w ktorej
-     znajduja sie i oddzialowywuja ze soba obiekty
+Author: Radoslaw Kostrzewski
+Purpose: This is the header file of world class responsible for
+         providing a space for objects to interact with eachother
 */
 class World {
 public:

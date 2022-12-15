@@ -1,8 +1,8 @@
 #include "World.h"
 /*
-Autor: Radoslaw Kostrzewski
-Cel: Plik implementujacy swiat - przestrzen, w ktorej
-     znajduja sie i oddzialowywuja ze soba obiekty
+Author: Radoslaw Kostrzewski
+Purpose: This is the implemenation of world class responsible for
+         providing a space for objects to interact with eachother
 */
 World::World(const b2World &world) : _world(world) {}
 

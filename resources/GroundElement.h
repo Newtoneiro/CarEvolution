@@ -5,10 +5,9 @@
 #include <box2d/b2_body.h>
 #include <box2d/b2_math.h>
 /*
-Autor: Radoslaw Kostrzewski
-Cel: Plik naglowkowy podlogi - staly element
-     bedacy przeszkoda dla dynamicznych obiektow i
-     oddzialujacy z nimi
+Author: Radoslaw Kostrzewski
+Purpose: This is the header file of single ground block - a static rectangle
+         that serves as a wall stoping dynamic objects from moving and interacting with them
 */
 class GroundElement {
 
