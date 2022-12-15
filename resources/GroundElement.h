@@ -1,26 +1,24 @@
 #ifndef CAREVOLUTION_GROUNDELEMENT_HPP
 #define CAREVOLUTION_GROUNDELEMENT_HPP
 
-#include <box2d/b2_math.h>
-#include <box2d/b2_body.h>
 #include "SFML/Graphics/Shape.hpp"
+#include <box2d/b2_body.h>
+#include <box2d/b2_math.h>
 
 class GroundElement {
 
 public:
+  explicit GroundElement(float xPos);
 
-    explicit GroundElement(float xPos);
+  ~GroundElement();
 
-    ~GroundElement();
+  void setBody(b2Body *newBody);
 
-    void setBody(b2Body *newBody);
-
-    const b2BodyDef *getBodyDef();
-
+  const b2BodyDef *getBodyDef();
 
 protected:
-    b2BodyDef _bodyDef;
-    b2Body *_body{};
+  b2BodyDef _bodyDef;
+  b2Body *_body{};
 };
 
-#endif //CAREVOLUTION_GROUNDELEMENT_H
+#endif // CAREVOLUTION_GROUNDELEMENT_H

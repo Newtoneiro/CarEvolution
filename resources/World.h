@@ -2,36 +2,34 @@
 #define CAREVOLUTION_WORLD_H
 
 #include <box2d/b2_world.h>
+
 #include "Figure.h"
-#include "GroundElement.hpp"
+#include "GroundElement.h"
 
 class World {
 public:
+  explicit World(const b2World &world);
 
-    explicit World(const b2World &world);
+  ~World();
 
-    ~World();
+  void createBody(Figure *fig);
 
-    void createBody(Figure *fig);
+  b2World &getWorld();
 
-    b2World &getWorld();
+  void updateElements();
 
-    void updateElements();
+  std::vector<Figure *> getElements();
 
-    std::vector<Figure *> getElements();
+  std::vector<GroundElement> getFloor();
 
-    std::vector<GroundElement> getFloor();
+  void step();
 
-    void step();
-
-    void generateFloor();
-
+  void generateFloor();
 
 private:
-    b2World _world;
-    std::vector<Figure *> _elements;
-    std::vector<GroundElement> _ground;
-
+  b2World _world;
+  std::vector<Figure *> _elements;
+  std::vector<GroundElement> _ground;
 };
 
-#endif //CAREVOLUTION_WORLD_H
+#endif // CAREVOLUTION_WORLD_H
