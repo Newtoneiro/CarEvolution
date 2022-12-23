@@ -1,9 +1,10 @@
 #ifndef CAREVOLUTION_GROUNDELEMENT_HPP
 #define CAREVOLUTION_GROUNDELEMENT_HPP
 
-#include "SFML/Graphics/Shape.hpp"
+#include "SFML/Graphics.hpp"
 #include <box2d/b2_body.h>
 #include <box2d/b2_math.h>
+
 /*
 Autor: Radoslaw Kostrzewski
 Cel: Plik naglowkowy podlogi - staly element
@@ -13,17 +14,20 @@ Cel: Plik naglowkowy podlogi - staly element
 class GroundElement {
 
 public:
-  explicit GroundElement(float xPos);
+    explicit GroundElement(float xPos, float rotation);
 
-  ~GroundElement();
+    ~GroundElement();
 
-  void setBody(b2Body *newBody);
+    void setBody(b2Body *newBody);
 
-  const b2BodyDef *getBodyDef();
+    const b2BodyDef *getBodyDef();
 
-protected:
-  b2BodyDef _bodyDef;
-  b2Body *_body{};
+    sf::RectangleShape getShape();
+
+private:
+    b2BodyDef _bodyDef;
+    sf::RectangleShape _shape;
+    b2Body *_body{};
 };
 
-#endif // CAREVOLUTION_GROUNDELEMENT_H
+#endif // CAREVOLUTION_GROUNDELEMENT_HPP

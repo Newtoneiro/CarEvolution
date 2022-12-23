@@ -1,12 +1,10 @@
-#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include "box2d/box2d.h"
-#include <cstdio>
-#include <iostream>
 #include <vector>
 
 #include "../resources/Circle.h"
 #include "../resources/World.h"
+#include "../resources/CarBody.h"
 
 /*
 Autor: Radoslaw Kostrzewski
@@ -25,33 +23,42 @@ const float FPS = 60;
 
 int main(int argc, char *argv[]) {
 
-  sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML window");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML window");
 
-  World world(*new b2World(b2Vec2(0.0f, GRAVITY)));
+    World world(*new b2World(b2Vec2(0.0f, GRAVITY)));
 
-  Circle circle1(8, 3.0f, 0.0f);
-  Circle circle2(6);
+    std::vector<unsigned int> test = {
+            25, 30, 24, 100, 100, 80, 60, 10
+    };
 
-  world.createBody(&circle1);
-  world.createBody(&circle2);
-  world.generateFloor();
+    Circle circle1(50, 227.0f, 0.0f);
+    Circle circle2(6, 267.0f, 0.0f);
+    CarBody car(test);
 
-  while (window.isOpen()) {
+    world.createBody(&circle1);
+    world.createBody(&circle2);
+    world.createBody(&car);
+    world.generateFloor();
 
-    sf::Event event{};
-    while (window.pollEvent(event)) {
-      if (event.type == sf::Event::Closed)
-        window.close();
+    while (window.isOpen()) {
+
+        sf::Event event{};
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        world.step();
+        world.updateElements();
+        window.clear();
+
+        for (auto shape: world.getElements()) {
+            window.draw(shape->getShape());
+        }
+        for (auto floor: world.getFloor()) {
+            window.draw(floor.getShape());
+        }
+        window.display();
     }
-
-    world.step();
-    world.updateElements();
-
-    window.clear();
-    for (auto shape : world.getElements()) {
-      window.draw(shape->getShape());
-    }
-    window.display();
-  }
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
