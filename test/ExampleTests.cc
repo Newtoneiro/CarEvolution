@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 /*
-Autor: Bartosz Latosek
-Cel: Plik z przykladowymi testami prezentujacy poprawne dzialanie 
-     biblioteki gtest
+Author: Bartosz Latosek
+Purpose: This is the file with example test for demonstration purposes
 */
 TEST(ExampleTests, DemonstrateGTestMacros) { EXPECT_TRUE(true); }

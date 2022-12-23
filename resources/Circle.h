@@ -6,9 +6,8 @@
 
 #include "Figure.h"
 /*
-Autor: Bartosz Latosek
-Cel: Plik naglowkowy kola - przykladowego obiektu
-     wykorzystywanego do symulacji fizyki
+Author: Bartosz Latosek
+Purpose: This is a header file for specialisation of figure class representing a circle
 */
 class Circle : public Figure {
 public:

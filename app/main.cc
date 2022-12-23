@@ -7,9 +7,9 @@
 #include "../resources/CarBody.h"
 
 /*
-Autor: Radoslaw Kostrzewski
-Cel: Glowny plik aplikacji, laczy ze soba wszystkie
-     potrzebne komponenty i uruchamia przykladowy program
+Author: Radoslaw Kostrzewski
+Purpose: This is a main file combining the logic and other aspects
+         serving as presentation of app's purpose
 */
 constexpr unsigned int WINDOW_WIDTH_PIXELS = 600;
 constexpr float WINDOW_WIDTH = 10.0;

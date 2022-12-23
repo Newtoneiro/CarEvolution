@@ -1,9 +1,8 @@
 #include "Circle.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik z implementacja kola - przykladowego obiektu
-     wykorzystywanego do symulacji fizyki
+Author: Bartosz Latosek
+Purpose: This is a implementation of specialisation of figure class representing a circle
 */
 Circle::Circle(float radius, float posX = 0.0f, float posY = 0.0f)
         : _radius(radius), Figure() {

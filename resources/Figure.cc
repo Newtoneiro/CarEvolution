@@ -1,9 +1,9 @@
 #include "Figure.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik implementujacy domyslna figure
-     sluzaca do prezentacji fizyki
+Author: Bartosz Latosek
+Purpose: This is implementation for base class for all figures - dynamic objects
+         that can interact with eachothers using rules of physic
 */
 Figure::Figure() { _bodyDef.type = b2_dynamicBody; }
 
