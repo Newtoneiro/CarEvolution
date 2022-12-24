@@ -5,6 +5,7 @@
 
 #include "Figure.h"
 #include "GroundElement.h"
+#include "Car.h"
 /*
 Author: Radoslaw Kostrzewski
 Purpose: This is the header file of world class responsible for
@@ -17,6 +18,8 @@ public:
   ~World();
 
   void createBody(Figure *fig);
+
+  void createCar(Car *car);
 
   b2World &getWorld();
 
@@ -31,6 +34,8 @@ public:
   void generateFloor();
 
 private:
+  void carCreateWheels(Car *car);
+
   b2World _world;
   std::vector<Figure *> _elements;
   std::vector<GroundElement> _ground;

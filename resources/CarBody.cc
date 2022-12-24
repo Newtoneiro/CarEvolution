@@ -21,13 +21,19 @@ void CarBody::updateShape() {
     float angle = _body->GetAngle();
     _shape.setPosition(sf::Vector2f(position.x, position.y));
     _shape.setRotation((angle / (float) M_PI) * 180);
+}
 
+b2Vec2 CarBody::getLeftWheel(){
+    return _points[5];
+}
+
+b2Vec2 CarBody::getRightWheel(){
+    return _points[3];
 }
 
 sf::Shape &CarBody::getShape() { return _shape; }
 
-CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) {
-
+CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses): Figure() {
     const b2Vec2 center(100, 100);
     _shape.setPointCount(bodyRadiuses.size());
     float angle = 0.f;
@@ -40,5 +46,4 @@ CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) {
         angle += M_PI / 4;
         i++;
     }
-
 }

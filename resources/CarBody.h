@@ -16,6 +16,10 @@ public:
 
     void updateShape() override;
 
+    b2Vec2 getLeftWheel();
+
+    b2Vec2 getRightWheel();
+
     sf::Shape &getShape() override;
 
 private:

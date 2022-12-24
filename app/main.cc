@@ -2,9 +2,10 @@
 #include "box2d/box2d.h"
 #include <vector>
 
+#include "../resources/CarBody.h"
+#include "../resources/Car.h"
 #include "../resources/Circle.h"
 #include "../resources/World.h"
-#include "../resources/CarBody.h"
 
 /*
 Author: Radoslaw Kostrzewski
@@ -28,20 +29,19 @@ int main(int argc, char *argv[]) {
     World world(*new b2World(b2Vec2(0.0f, GRAVITY)));
 
     std::vector<unsigned int> test = {
-            25, 30, 24, 100, 100, 80, 60, 10
+        25, 25, 25, 25, 25, 25, 25, 25
     };
 
-    Circle circle1(50, 227.0f, 0.0f);
-    Circle circle2(6, 267.0f, 0.0f);
-    CarBody car(test);
+    std::vector<float> test2 = {
+        20, 10
+    };
 
-    world.createBody(&circle1);
-    world.createBody(&circle2);
-    world.createBody(&car);
+    Car car(test, test2);
+    world.createCar(&car);
+    
     world.generateFloor();
 
     while (window.isOpen()) {
-
         sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)

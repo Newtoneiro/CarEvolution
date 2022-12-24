@@ -1,4 +1,5 @@
 #include "World.h"
+#include "Car.h"
 
 /*
 Author: Radoslaw Kostrzewski
@@ -13,6 +14,13 @@ void World::createBody(Figure *fig) {
     fig->setBody(newBody);
     fig->createBody();
     _elements.push_back(fig);
+}
+
+void World::createCar(Car *car) {
+    createBody(car->getCarBody());
+    createBody(car->getLeftCircle());
+    createBody(car->getRightCircle());
+    carCreateWheels(car);
 }
 
 b2World &World::getWorld() { return _world; }
@@ -41,6 +49,29 @@ void World::generateFloor() {
         elem->setBody(groundBody);
         _ground.push_back(*elem);
     }
+}
+
+void World::carCreateWheels(Car *car) {
+    b2RevoluteJointDef* leftWheelJoint = new b2RevoluteJointDef();
+    b2RevoluteJointDef* rightWheelJoint = new b2RevoluteJointDef();
+    
+    leftWheelJoint->bodyA = car->getCarBody()->getBody();
+    rightWheelJoint->bodyA = car->getCarBody()->getBody();
+    
+    leftWheelJoint->bodyB = car->getLeftCircle()->getBody();
+    rightWheelJoint->bodyB = car->getRightCircle()->getBody();
+    
+    leftWheelJoint->localAnchorA = car->getCarBody()->getLeftWheel();
+    rightWheelJoint->localAnchorA = car->getCarBody()->getRightWheel();
+    
+    leftWheelJoint->collideConnected = false;
+    rightWheelJoint->collideConnected = false;
+    
+    leftWheelJoint->Initialize(leftWheelJoint->bodyA, leftWheelJoint->bodyB, leftWheelJoint->localAnchorA);
+    rightWheelJoint->Initialize(rightWheelJoint->bodyA, rightWheelJoint->bodyB, rightWheelJoint->localAnchorA);
+
+    _world.CreateJoint(leftWheelJoint);
+    _world.CreateJoint(rightWheelJoint);
 }
 
 std::vector<GroundElement> World::getFloor() { return _ground; }
