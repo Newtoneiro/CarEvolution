@@ -2,10 +2,10 @@
 #include "box2d/box2d.h"
 #include <vector>
 
-#include "../resources/CarBody.h"
-#include "../resources/Car.h"
-#include "../resources/Circle.h"
-#include "../resources/World.h"
+#include "../src/CarBody.h"
+#include "../src/Car.h"
+#include "../src/Circle.h"
+#include "../src/World.h"
 
 /*
 Author: Radoslaw Kostrzewski
@@ -29,16 +29,18 @@ int main(int argc, char *argv[]) {
     World world(*new b2World(b2Vec2(0.0f, GRAVITY)));
 
     std::vector<unsigned int> test = {
-        25, 50, 25, 50, 25, 15, 15, 15
+            25, 50, 25, 50, 25, 15, 15, 15
     };
 
     std::vector<float> test2 = {
-        30, 30
+            30, 30
     };
 
+//    Circle testCirc(50, 250, 0);
     Car car(test, test2);
     world.createCar(&car);
-    
+//    world.createBody(&testCirc);
+
     world.generateFloor();
 
     while (window.isOpen()) {
@@ -54,9 +56,6 @@ int main(int argc, char *argv[]) {
 
         for (auto shape: world.getElements()) {
             window.draw(shape->getShape());
-        }
-        for (auto floor: world.getFloor()) {
-            window.draw(floor.getShape());
         }
         window.display();
     }

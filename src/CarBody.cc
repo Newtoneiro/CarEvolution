@@ -23,17 +23,18 @@ void CarBody::updateShape() {
     _shape.setRotation((angle / (float) M_PI) * 180);
 }
 
-b2Vec2 CarBody::getLeftWheel(){
+b2Vec2 CarBody::getLeftWheel() {
     return _points[3];
 }
 
-b2Vec2 CarBody::getRightWheel(){
+b2Vec2 CarBody::getRightWheel() {
     return _points[1];
 }
 
 sf::Shape &CarBody::getShape() { return _shape; }
 
-CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses): Figure() {
+CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) : Figure() {
+    _bodyDef.type = b2_dynamicBody;
     const b2Vec2 center(100, 100);
     _shape.setPointCount(bodyRadiuses.size());
     float angle = 0.f;

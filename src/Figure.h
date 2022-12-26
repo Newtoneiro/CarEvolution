@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "box2d/box2d.h"
+
 /*
 Author: Bartosz Latosek
 Purpose: This is header file for base class for all figures - dynamic objects
@@ -10,27 +11,27 @@ Purpose: This is header file for base class for all figures - dynamic objects
 */
 class Figure {
 public:
-  Figure();
+    Figure();
 
-  ~Figure();
+    ~Figure();
 
-  b2Vec2 getPosition();
+    b2Vec2 getPosition();
 
-  b2Body *getBody();
+    b2Body *getBody();
 
-  void setBody(b2Body *newBody);
+    void setBody(b2Body *newBody);
 
-  b2BodyDef getBodyDef();
+    b2BodyDef getBodyDef();
 
-  virtual void createBody() = 0;
+    virtual void createBody() = 0;
 
-  virtual void updateShape() = 0;
+    virtual void updateShape() = 0;
 
-  virtual sf::Shape &getShape() = 0;
+    virtual sf::Shape &getShape() = 0;
 
 protected:
-  b2BodyDef _bodyDef;
-  b2Body *_body{};
+    b2BodyDef _bodyDef;
+    b2Body *_body;
 };
 
 #endif // CAREVOLUTION_FIGURE_H

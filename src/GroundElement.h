@@ -1,32 +1,32 @@
 #ifndef CAREVOLUTION_GROUNDELEMENT_HPP
 #define CAREVOLUTION_GROUNDELEMENT_HPP
 
+#include "../config/GroundConfig.h"
+
 #include "SFML/Graphics.hpp"
 #include <box2d/b2_body.h>
 #include <box2d/b2_math.h>
+#include "Figure.h"
+
 
 /*
 Author: Radoslaw Kostrzewski
 Purpose: This is the header file of single ground block - a static rectangle
          that serves as a wall stoping dynamic objects from moving and interacting with them
 */
-class GroundElement {
-
+class GroundElement : public Figure {
 public:
-    explicit GroundElement(float xPos, float yPos, float rotation);
+    GroundElement(float posX, float posY, float rotation);
 
-    ~GroundElement();
+    void createBody() override;
 
-    void setBody(b2Body *newBody);
+    void updateShape() override;
 
-    const b2BodyDef *getBodyDef();
-
-    sf::RectangleShape getShape();
+    sf::Shape &getShape() override;
 
 private:
-    b2BodyDef _bodyDef;
+
     sf::RectangleShape _shape;
-    b2Body *_body{};
 };
 
 #endif // CAREVOLUTION_GROUNDELEMENT_HPP
