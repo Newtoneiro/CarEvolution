@@ -2,10 +2,12 @@
 #define CAREVOLUTION_WORLD_H
 
 #include <box2d/b2_world.h>
+#include <box2d/b2_math.h>
 
 #include "Figure.h"
 #include "GroundElement.h"
 #include "Car.h"
+#include "random"
 /*
 Author: Radoslaw Kostrzewski
 Purpose: This is the header file of world class responsible for
@@ -34,6 +36,10 @@ public:
   void generateFloor();
 
 private:
+  static constexpr float groundElementWidth = 100.0f;
+  static constexpr float groundElementHeight = 10.0f;
+  static constexpr float maxStope = 50.0f;
+  
   void carCreateWheels(Car *car);
 
   b2World _world;

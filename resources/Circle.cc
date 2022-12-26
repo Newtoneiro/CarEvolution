@@ -25,7 +25,7 @@ void Circle::createBody() {
     b2FixtureDef fixture;
     fixture.shape = &shape;
     fixture.density = 1.0f;
-    fixture.friction = 0.3f;
+    fixture.friction = 0.7f;
     fixture.restitution = 0.5f;
     _body->CreateFixture(&fixture);
 }

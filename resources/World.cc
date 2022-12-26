@@ -6,7 +6,7 @@ Author: Radoslaw Kostrzewski
 Purpose: This is the implemenation of world class responsible for
          providing a space for objects to interact with eachother
 */
-World::World(const b2World &world) : _world(world) {}
+World::World(const b2World &world) : _world(world) {srand(time(0));}
 
 void World::createBody(Figure *fig) {
     b2BodyDef bodyDef = fig->getBodyDef();
@@ -36,18 +36,35 @@ std::vector<Figure *> World::getElements() { return _elements; }
 void World::step() { _world.Step(1.0f / 60, 6, 2); }
 
 void World::generateFloor() {
+    float curX = 0.0f;
+    float curY = 400.0f;
     for (int i = 0; i < 10; i++) {
-        auto elem = new GroundElement(i * 100, -M_PI / 72);
+        float newAngle = (-maxStope + (rand() % int(2* maxStope - 1)));
+        newAngle = newAngle * 0.0174;
+        if (curX == 0)
+          newAngle = 0.0f;
+        
+        if (newAngle > 0)
+            curY += (groundElementWidth * sin(newAngle));
+
+        auto elem = new GroundElement(curX, curY, newAngle);
         b2Body *groundBody = _world.CreateBody(elem->getBodyDef());
         b2PolygonShape groundShape;
-        groundShape.SetAsBox(100.0f, 10.0f);
+        groundShape.SetAsBox(groundElementWidth, groundElementHeight);
+        
         b2FixtureDef fixtureDef;
         fixtureDef.shape = &groundShape;
+        fixtureDef.friction = 0.7f;
         fixtureDef.density = 0.0f;
         fixtureDef.restitution = 0.5f;
+        
         groundBody->CreateFixture(&fixtureDef);
         elem->setBody(groundBody);
         _ground.push_back(*elem);
+
+        curX += abs(groundElementWidth * cos(newAngle));
+        if (newAngle < 0)
+            curY += (groundElementWidth * sin(newAngle));
     }
 }
 

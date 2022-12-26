@@ -7,8 +7,8 @@ Cel: Plik implementujacy podloge - staly element
      bedacy przeszkoda dla dynamicznych obiektow i
      oddzialujacy z nimi
 */
-GroundElement::GroundElement(float xPos, float rotation) {
-    _bodyDef.position.Set(xPos, 400.0f);
+GroundElement::GroundElement(float xPos, float yPos, float rotation) {
+    _bodyDef.position.Set(xPos, yPos);
     _bodyDef.angle = rotation;
 };
 

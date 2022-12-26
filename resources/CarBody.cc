@@ -24,11 +24,11 @@ void CarBody::updateShape() {
 }
 
 b2Vec2 CarBody::getLeftWheel(){
-    return _points[5];
+    return _points[3];
 }
 
 b2Vec2 CarBody::getRightWheel(){
-    return _points[3];
+    return _points[1];
 }
 
 sf::Shape &CarBody::getShape() { return _shape; }

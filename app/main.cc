@@ -29,11 +29,11 @@ int main(int argc, char *argv[]) {
     World world(*new b2World(b2Vec2(0.0f, GRAVITY)));
 
     std::vector<unsigned int> test = {
-        25, 25, 25, 25, 25, 25, 25, 25
+        25, 50, 25, 50, 25, 15, 15, 15
     };
 
     std::vector<float> test2 = {
-        20, 10
+        30, 30
     };
 
     Car car(test, test2);

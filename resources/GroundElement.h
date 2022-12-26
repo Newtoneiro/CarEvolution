@@ -13,7 +13,7 @@ Purpose: This is the header file of single ground block - a static rectangle
 class GroundElement {
 
 public:
-    explicit GroundElement(float xPos, float rotation);
+    explicit GroundElement(float xPos, float yPos, float rotation);
 
     ~GroundElement();
 
