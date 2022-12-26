@@ -22,8 +22,6 @@ void World::createCar(Car *car) {
     carCreateWheels(car);
 }
 
-b2World &World::getWorld() { return _world; }
-
 void World::updateElements() {
     for (auto &element: _elements) {
         element->updateShape();
@@ -39,7 +37,7 @@ void World::step() {
 void World::generateFloor() {
     float curX = 0.0f;
     float curY = 400.0f;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
         // Generating random angle from -maxStope to maxStope
         float newAngle = (-maxStope + (rand() % int(2 * maxStope - 1)));
 

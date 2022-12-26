@@ -26,20 +26,16 @@ public:
 
     void createCar(Car *car);
 
-    b2World &getWorld();
-
     void updateElements();
 
     std::vector<Figure *> getElements();
-
-    std::vector<GroundElement> getFloor();
 
     void step();
 
     void generateFloor();
 
 private:
-    static constexpr float maxStope = 50.0f;
+    static constexpr float maxStope = 70.0f;
 
     void carCreateWheels(Car *car);
 
