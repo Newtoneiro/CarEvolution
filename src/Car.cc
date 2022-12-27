@@ -37,3 +37,15 @@ Circle *Car::getRightCircle() {
 }
 
 sf::Shape &Car::getShape() { return _carBody->getShape(); }
+
+int Car::getTime() const {
+    return _timer;
+}
+
+void Car::timerReset() {
+    _timer = 0;
+}
+
+void Car::timerStep() {
+    _timer++;
+}

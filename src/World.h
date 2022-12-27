@@ -26,6 +26,8 @@ public:
 
     void createCar(Car *car);
 
+    void destroyCar(Car *car);
+
     void updateElements();
 
     std::vector<Figure *> getElements();
@@ -41,6 +43,7 @@ private:
 
     b2World _world;
     std::vector<Figure *> _elements;
+
 };
 
 #endif // CAREVOLUTION_WORLD_H

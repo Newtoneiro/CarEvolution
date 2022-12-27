@@ -22,6 +22,22 @@ void World::createCar(Car *car) {
     carCreateWheels(car);
 }
 
+void World::destroyCar(Car *car) {
+    auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
+    auto timer = car->getTime();
+    if (abs(speed.x) < 1 && abs(speed.y) < 1) {
+        if (timer > 3600) {
+            car->timerReset();
+            _world.DestroyBody(car->getCarBody()->getBody());
+            _world.DestroyBody(car->getLeftCircle()->getBody());
+            _world.DestroyBody(car->getRightCircle()->getBody());
+            createCar(car);
+        }
+    } else {
+        car->timerReset();
+    }
+}
+
 void World::updateElements() {
     for (auto &element: _elements) {
         element->updateShape();
@@ -61,8 +77,8 @@ void World::generateFloor() {
 }
 
 void World::carCreateWheels(Car *car) {
-    b2RevoluteJointDef *leftWheelJoint = new b2RevoluteJointDef();
-    b2RevoluteJointDef *rightWheelJoint = new b2RevoluteJointDef();
+    auto *leftWheelJoint = new b2RevoluteJointDef();
+    auto *rightWheelJoint = new b2RevoluteJointDef();
 
     leftWheelJoint->bodyA = car->getCarBody()->getBody();
     rightWheelJoint->bodyA = car->getCarBody()->getBody();
@@ -82,5 +98,6 @@ void World::carCreateWheels(Car *car) {
     _world.CreateJoint(leftWheelJoint);
     _world.CreateJoint(rightWheelJoint);
 }
+
 
 World::~World() = default;

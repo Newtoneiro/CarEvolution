@@ -57,6 +57,9 @@ int main(int argc, char *argv[]) {
         for (auto shape: world.getElements()) {
             window.draw(shape->getShape());
         }
+
+        car.timerStep();
+        world.destroyCar(&car);
         window.display();
     }
     return EXIT_SUCCESS;
