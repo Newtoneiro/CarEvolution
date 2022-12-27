@@ -35,13 +35,13 @@ sf::Shape &CarBody::getShape() { return _shape; }
 
 CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) : Figure() {
     _bodyDef.type = b2_dynamicBody;
-    const b2Vec2 center(100, 100);
     _shape.setPointCount(bodyRadiuses.size());
+    
+    const b2Vec2 center(100, 100);
     float angle = 0.f;
     int i = 0;
     for (auto radius: bodyRadiuses) {
         b2Vec2 newPoint(center.x + radius * cos(angle), center.y + radius * sin(angle));
-        printf("point %d: %f, %f \n", i, newPoint.x, newPoint.y);
         _points[i] = newPoint;
         _shape.setPoint(i, sf::Vector2f(newPoint.x, newPoint.y));
         angle += M_PI / 4;

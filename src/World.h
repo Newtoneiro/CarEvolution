@@ -2,6 +2,7 @@
 #define CAREVOLUTION_WORLD_H
 
 #include "../config/GroundConfig.h"
+#include "../config/EnviromentConfig.h"
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_math.h>
@@ -35,7 +36,7 @@ public:
     void generateFloor();
 
 private:
-    static constexpr float maxStope = 70.0f;
+    static constexpr float maxStope = 40.0f;
 
     void carCreateWheels(Car *car);
 

@@ -31,7 +31,9 @@ void World::updateElements() {
 std::vector<Figure *> World::getElements() { return _elements; }
 
 void World::step() {
-    _world.Step(1.0f / 120, 6, 2);
+    _world.Step(1.0f / EnviromentConfig::FPS,
+                EnviromentConfig::VELOCITY_ITERATIONS,
+                EnviromentConfig::POSITION_ITERATIONS);
 }
 
 void World::generateFloor() {
