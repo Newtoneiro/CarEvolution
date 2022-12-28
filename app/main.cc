@@ -56,11 +56,11 @@ int main(int argc, char *argv[]) {
 
     world.generateFloor();
 
-//    sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH / 2,
-//                               EnviromentConfig::WINDOW_HEIGHT / 2),
-//                  sf::Vector2f(EnviromentConfig::WINDOW_WIDTH,
-//                               EnviromentConfig::WINDOW_HEIGHT));
-//    window.setView(view);
+    sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH / 2,
+                               EnviromentConfig::WINDOW_HEIGHT / 2),
+                  sf::Vector2f(EnviromentConfig::WINDOW_WIDTH,
+                               EnviromentConfig::WINDOW_HEIGHT));
+    window.setView(view);
 
     while (window.isOpen()) {
         sf::Event event{};
@@ -77,16 +77,10 @@ int main(int argc, char *argv[]) {
             window.draw(shape->getShape());
         }
 
-        car.timerStep();
-        car2.timerStep();
-        car3.timerStep();
-        world.destroyCar(&car);
-        world.destroyCar(&car2);
-        world.destroyCar(&car3);
 
-//        b2Vec2 pos = car.getCarBody()->getBody()->GetPosition();
-//        view.setCenter(pos.x + 100, pos.y + 100);
-//        window.setView(view);
+        b2Vec2 pos = world.destroyCars();
+        view.setCenter(pos.x + 100, pos.y + 100);
+        window.setView(view);
 
         window.display();
     }

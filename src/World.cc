@@ -20,22 +20,30 @@ void World::createCar(Car *car) {
     createBody(car->getLeftCircle());
     createBody(car->getRightCircle());
     carCreateWheels(car);
+    _cars.push_back(car);
 }
 
-void World::destroyCar(Car *car) {
-    auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
-    auto timer = car->getTime();
-    if (abs(speed.x) < 1 && abs(speed.y) < 1) {
-        if (timer > 3600) {
+b2Vec2 World::destroyCars() {
+    b2Vec2 firstCarPos = b2Vec2_zero;
+    for (auto car: _cars) {
+        auto currentPos = car->getCarBody()->getBody()->GetPosition();
+        if (std::max(currentPos.x, firstCarPos.x) == currentPos.x) { firstCarPos = currentPos; }
+        car->timerStep();
+        auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
+        auto timer = car->getTime();
+        if (abs(speed.x) < 1 && abs(speed.y) < 1) {
+            if (timer > 3600) {
+                car->timerReset();
+                _world.DestroyBody(car->getCarBody()->getBody());
+                _world.DestroyBody(car->getLeftCircle()->getBody());
+                _world.DestroyBody(car->getRightCircle()->getBody());
+                createCar(car);
+            }
+        } else {
             car->timerReset();
-            _world.DestroyBody(car->getCarBody()->getBody());
-            _world.DestroyBody(car->getLeftCircle()->getBody());
-            _world.DestroyBody(car->getRightCircle()->getBody());
-            createCar(car);
         }
-    } else {
-        car->timerReset();
     }
+    return firstCarPos;
 }
 
 void World::updateElements() {

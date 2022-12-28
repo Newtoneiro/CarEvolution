@@ -27,7 +27,7 @@ public:
 
     void createCar(Car *car);
 
-    void destroyCar(Car *car);
+    b2Vec2 destroyCars();
 
     void updateElements();
 
@@ -44,6 +44,7 @@ private:
 
     b2World _world;
     std::vector<Figure *> _elements;
+    std::vector<Car *> _cars;
 
 };
 

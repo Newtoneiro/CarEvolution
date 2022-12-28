@@ -4,9 +4,9 @@
 #include <string>
 
 enum FigureCategories {
-    carBody,
-    circle,
-    ground
+    carBody = 1,
+    circle = 2,
+    ground = 4
 };
 
 #endif //CAREVOLUTION_FIGURECATEGORIES_H
