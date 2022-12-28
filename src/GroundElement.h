@@ -2,6 +2,8 @@
 #define CAREVOLUTION_GROUNDELEMENT_HPP
 
 #include "../config/GroundConfig.h"
+#include "../config/FigureCategories.h"
+
 
 #include "SFML/Graphics.hpp"
 #include <box2d/b2_body.h>

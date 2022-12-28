@@ -12,25 +12,35 @@ Cel: Plik naglowkowy samochodu - obiektu reprezentującego
 */
 class Car : public Figure {
 public:
-    Car(const std::vector<unsigned int> &bodyRadiuses, 
+    Car(const std::vector<unsigned int> &bodyRadiuses,
         const std::vector<float> &wheelRadiuses);
+
+    ~Car();
 
     void createBody() override;
 
     void updateShape() override;
 
-    CarBody* getCarBody();
+    CarBody *getCarBody();
 
-    Circle* getLeftCircle();
+    Circle *getLeftCircle();
 
-    Circle* getRightCircle();
+    Circle *getRightCircle();
 
     sf::Shape &getShape() override;
 
+    int getTime() const;
+
+    void timerStep();
+
+    void timerReset();
+
 private:
-    CarBody* _carBody;
-    Circle* _leftCircle;
-    Circle* _rightCircle;
+    CarBody *_carBody;
+    Circle *_leftCircle;
+    Circle *_rightCircle;
+
+    int _timer = 0;
 };
 
 
