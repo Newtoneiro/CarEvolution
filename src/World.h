@@ -2,6 +2,7 @@
 #define CAREVOLUTION_WORLD_H
 
 #include "../config/GroundConfig.h"
+#include "../config/EnviromentConfig.h"
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_math.h>
@@ -26,6 +27,8 @@ public:
 
     void createCar(Car *car);
 
+    b2Vec2 destroyCars();
+
     void updateElements();
 
     std::vector<Figure *> getElements();
@@ -35,12 +38,14 @@ public:
     void generateFloor();
 
 private:
-    static constexpr float maxStope = 70.0f;
+    static constexpr float maxStope = 40.0f;
 
     void carCreateWheels(Car *car);
 
     b2World _world;
     std::vector<Figure *> _elements;
+    std::vector<Car *> _cars;
+
 };
 
 #endif // CAREVOLUTION_WORLD_H

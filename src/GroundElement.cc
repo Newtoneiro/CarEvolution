@@ -24,6 +24,7 @@ void GroundElement::createBody() {
     fixture.density = 1.0f;
     fixture.friction = 0.7f;
     fixture.restitution = 0.5f;
+    fixture.filter.categoryBits = FigureCategories(ground);
     _body->CreateFixture(&fixture);
 }
 
