@@ -15,6 +15,8 @@ public:
     Car(const std::vector<unsigned int> &bodyRadiuses,
         const std::vector<float> &wheelRadiuses);
 
+    ~Car();
+
     void createBody() override;
 
     void updateShape() override;

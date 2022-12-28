@@ -12,6 +12,12 @@ Car::Car(const std::vector<unsigned int> &bodyRadiuses,
     _rightCircle = new Circle(wheelRadiuses[1], _carBody->getRightWheel().x, _carBody->getRightWheel().y);
 }
 
+Car::~Car() {
+    delete (_carBody);
+    delete (_leftCircle);
+    delete (_rightCircle);
+}
+
 void Car::createBody() {
     _carBody->createBody();
     _leftCircle->createBody();
