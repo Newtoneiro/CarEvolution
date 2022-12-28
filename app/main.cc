@@ -32,13 +32,33 @@ int main(int argc, char *argv[]) {
             25, 50, 25, 50, 25, 15, 15, 15
     };
 
+    std::vector<unsigned int> test3 = {
+            25, 50, 35, 20, 25, 35, 15, 15
+    };
+
+    std::vector<unsigned int> test5 = {
+            15, 50, 25, 30, 20, 15, 25, 15
+    };
+
     std::vector<float> test2 = {
             30, 30
     };
 
+    std::vector<float> test4 = {
+            10, 20
+    };
+
+    std::vector<float> test6 = {
+            35, 15
+    };
+
 //    Circle testCirc(50, 250, 0);
     Car car(test, test2);
+    Car car2(test3, test4);
+    Car car3(test5, test6);
     world.createCar(&car);
+    world.createCar(&car2);
+    world.createCar(&car3);
 //    world.createBody(&testCirc);
 
     world.generateFloor();
@@ -59,7 +79,11 @@ int main(int argc, char *argv[]) {
         }
 
         car.timerStep();
+        car2.timerStep();
+        car3.timerStep();
         world.destroyCar(&car);
+        world.destroyCar(&car2);
+        world.destroyCar(&car3);
         window.display();
     }
     return EXIT_SUCCESS;

@@ -13,6 +13,8 @@ void CarBody::createBody() {
     fixture.density = 1.0f;
     fixture.friction = 0.3f;
     fixture.restitution = 0.5f;
+    fixture.filter.categoryBits = FigureCategories(carBody);
+    fixture.filter.maskBits = FigureCategories(ground);
     _body->CreateFixture(&fixture);
 }
 
