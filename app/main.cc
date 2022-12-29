@@ -19,8 +19,7 @@ int main(int argc, char *argv[]) {
     sf::RenderWindow window(sf::VideoMode({EnviromentConfig::WINDOW_WIDTH,
                                            EnviromentConfig::WINDOW_HEIGHT}), "SFML window");
 
-    auto newWorld = new b2World(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
-    World world(*newWorld);
+    World world;
 
     std::vector<unsigned int> test = {
             25, 50, 25, 50, 25, 15, 15, 15

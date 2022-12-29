@@ -6,11 +6,14 @@ Author: Radoslaw Kostrzewski
 Purpose: This is the implemenation of world class responsible for
          providing a space for objects to interact with eachother
 */
-World::World(const b2World &world) : _world(world) { srand(time(0)); }
+World::World() {
+    srand(time(0));
+    _world = new b2World(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
+}
 
 void World::createBody(Figure *fig) {
     b2BodyDef bodyDef = fig->getBodyDef();
-    b2Body *newBody = _world.CreateBody(&bodyDef);
+    b2Body *newBody = _world->CreateBody(&bodyDef);
     fig->setBody(newBody);
     fig->createBody();
     _elements.push_back(fig);
@@ -50,9 +53,9 @@ b2Vec2 World::destroyCars() {
         if (abs(speed.x) < 1 && abs(speed.y) < 1) {
             if (timer > 3600) {
                 car->timerReset();
-                _world.DestroyBody(car->getCarBody()->getBody());
-                _world.DestroyBody(car->getLeftCircle()->getBody());
-                _world.DestroyBody(car->getRightCircle()->getBody());
+                _world->DestroyBody(car->getCarBody()->getBody());
+                _world->DestroyBody(car->getLeftCircle()->getBody());
+                _world->DestroyBody(car->getRightCircle()->getBody());
                 createCar(car);
             }
         } else {
@@ -71,9 +74,9 @@ void World::updateElements() {
 std::vector<Figure *> World::getElements() { return _elements; }
 
 void World::step() {
-    _world.Step(1.0f / EnviromentConfig::FPS,
-                EnviromentConfig::VELOCITY_ITERATIONS,
-                EnviromentConfig::POSITION_ITERATIONS);
+    _world->Step(1.0f / EnviromentConfig::FPS,
+                 EnviromentConfig::VELOCITY_ITERATIONS,
+                 EnviromentConfig::POSITION_ITERATIONS);
 }
 
 void World::generateFloor() {
@@ -124,8 +127,8 @@ void World::carCreateWheels(Car *car) {
     leftWheelJoint->Initialize(leftWheelJoint->bodyA, leftWheelJoint->bodyB, leftWheelJoint->localAnchorA);
     rightWheelJoint->Initialize(rightWheelJoint->bodyA, rightWheelJoint->bodyB, rightWheelJoint->localAnchorA);
 
-    _world.CreateJoint(leftWheelJoint);
-    _world.CreateJoint(rightWheelJoint);
+    _world->CreateJoint(leftWheelJoint);
+    _world->CreateJoint(rightWheelJoint);
 }
 
 
@@ -139,4 +142,5 @@ World::~World() {
     for (auto joint: _joints) {
         delete (joint);
     }
+    delete (_world);
 };

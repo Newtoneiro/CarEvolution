@@ -19,7 +19,7 @@ Purpose: This is the header file of world class responsible for
 */
 class World {
 public:
-    explicit World(const b2World &world);
+    explicit World();
 
     ~World();
 
@@ -44,7 +44,7 @@ private:
 
     void carCreateWheels(Car *car);
 
-    b2World _world;
+    b2World *_world;
     std::vector<Figure *> _elements;
     std::vector<Car *> _cars;
     std::vector<b2RevoluteJointDef *> _joints;
