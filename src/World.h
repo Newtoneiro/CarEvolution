@@ -27,6 +27,8 @@ public:
 
     void createCar(Car *car);
 
+    void createCars(int number);
+
     b2Vec2 destroyCars();
 
     void updateElements();
@@ -45,6 +47,7 @@ private:
     b2World _world;
     std::vector<Figure *> _elements;
     std::vector<Car *> _cars;
+    std::vector<b2RevoluteJointDef *> _joints;
 
 };
 

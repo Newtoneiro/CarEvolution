@@ -13,7 +13,7 @@ class Figure {
 public:
     Figure();
 
-    ~Figure();
+    virtual ~Figure();
 
     b2Vec2 getPosition();
 

@@ -1,4 +1,5 @@
 #include "World.h"
+#include "../config/CarConfig.h"
 
 /*
 Author: Radoslaw Kostrzewski
@@ -21,6 +22,21 @@ void World::createCar(Car *car) {
     createBody(car->getRightCircle());
     carCreateWheels(car);
     _cars.push_back(car);
+}
+
+void World::createCars(int number) {
+    srand(time(nullptr));
+    for (int i = 0; i < number; i++) {
+        std::vector<unsigned int> diameters;
+        std::vector<float> radiuses;
+        for (int j = 0; j < 8; j++) {
+            diameters.push_back(rand() % (CarConfig().maxDiameter - CarConfig().minDiameter) + CarConfig().minDiameter);
+        }
+        for (int j = 0; j < 2; j++) {
+            radiuses.push_back(rand() % (CarConfig().maxRadius - CarConfig().minRadius) + CarConfig().minRadius);
+        }
+        createCar(new Car(diameters, radiuses));
+    }
 }
 
 b2Vec2 World::destroyCars() {
@@ -90,6 +106,9 @@ void World::carCreateWheels(Car *car) {
     auto *leftWheelJoint = new b2RevoluteJointDef();
     auto *rightWheelJoint = new b2RevoluteJointDef();
 
+    _joints.push_back(leftWheelJoint);
+    _joints.push_back(rightWheelJoint);
+
     leftWheelJoint->bodyA = car->getCarBody()->getBody();
     rightWheelJoint->bodyA = car->getCarBody()->getBody();
 
@@ -110,4 +129,14 @@ void World::carCreateWheels(Car *car) {
 }
 
 
-World::~World() = default;
+World::~World() {
+    for (auto elem: _elements) {
+        delete (elem);
+    }
+    for (auto car: _cars) {
+        delete (car);
+    }
+    for (auto joint: _joints) {
+        delete (joint);
+    }
+};

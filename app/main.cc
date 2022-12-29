@@ -19,7 +19,8 @@ int main(int argc, char *argv[]) {
     sf::RenderWindow window(sf::VideoMode({EnviromentConfig::WINDOW_WIDTH,
                                            EnviromentConfig::WINDOW_HEIGHT}), "SFML window");
 
-    World world(*new b2World(b2Vec2(0.0f, EnviromentConfig::GRAVITY)));
+    auto newWorld = new b2World(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
+    World world(*newWorld);
 
     std::vector<unsigned int> test = {
             25, 50, 25, 50, 25, 15, 15, 15
@@ -45,15 +46,7 @@ int main(int argc, char *argv[]) {
             35, 15
     };
 
-//    Circle testCirc(50, 250, 0);
-    Car car(test, test2);
-    Car car2(test3, test4);
-    Car car3(test5, test6);
-    world.createCar(&car);
-    world.createCar(&car2);
-    world.createCar(&car3);
-//    world.createBody(&testCirc);
-
+    world.createCars(20);
     world.generateFloor();
 
     sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH / 2,
