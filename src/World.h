@@ -49,7 +49,7 @@ public:
     void generateFloor();
 
 private:
-    static constexpr float maxStope = 40.0f;
+    static constexpr float maxStope = 60.0f;
 
     void carCreateWheels(const PCar &car);
 
@@ -58,6 +58,9 @@ private:
     std::vector<PCar> _cars;
     std::vector<PJoint> _joints;
 
+    void destroyCar(const PCar &car);
+
+    void respawnCar(const PCar &car);
 };
 
 #endif // CAREVOLUTION_WORLD_H

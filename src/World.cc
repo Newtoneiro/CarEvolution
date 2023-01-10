@@ -23,6 +23,7 @@ void World::createBody(const PFigure &fig) {
     _elements.push_back(fig);
 }
 
+
 void World::createCar(const PCar &car) {
     car->setCarAlive(true);
     createBody(car->getCarBody());
@@ -30,6 +31,15 @@ void World::createCar(const PCar &car) {
     createBody(car->getRightCircle());
     carCreateWheels(car);
     _cars.push_back(car);
+}
+
+void World::respawnCar(const PCar &car) {
+    b2Vec2 rightWheelPos = car->getCarBody()->getRightWheel();
+    b2Vec2 leftWheelPos = car->getCarBody()->getLeftWheel();
+    car->getCarBody()->getBody()->SetTransform(b2Vec2_zero, 0.0f);
+    car->getLeftCircle()->getBody()->SetTransform(leftWheelPos, 0.0f);
+    car->getRightCircle()->getBody()->SetTransform(rightWheelPos, 0.0f);
+    car->setCarAlive(true);
 }
 
 void World::createCars(int number) {
@@ -49,8 +59,10 @@ void World::createCars(int number) {
 
 b2Vec2 World::destroyCars() {
     b2Vec2 firstCarPos = b2Vec2(-100, 0);
+    bool areCarsAlive = false;
     for (const PCar &car: _cars) {
-        if (!car->isCarAlive()) break;
+        if (!areCarsAlive) areCarsAlive = car->isCarAlive();
+        if (!car->isCarAlive()) continue;
 
         auto currentPos = car->getCarBody()->getBody()->GetPosition();
         if (std::max(currentPos.x, firstCarPos.x) == currentPos.x) { firstCarPos = currentPos; }
@@ -59,14 +71,17 @@ b2Vec2 World::destroyCars() {
         auto timer = car->getTime();
         if (abs(speed.x) < 1 && abs(speed.y) < 1) {
             if (timer > 3600) {
-                _world->DestroyBody(car->getCarBody()->getBody());
-                _world->DestroyBody(car->getLeftCircle()->getBody());
-                _world->DestroyBody(car->getRightCircle()->getBody());
-                car->setCarAlive(false);
                 car->timerReset();
+                car->setCarAlive(false);
+//                destroyCar(car);
             }
         } else {
             car->timerReset();
+        }
+    }
+    if (!areCarsAlive) {
+        for (auto &car: _cars) {
+            respawnCar(car);
         }
     }
     return firstCarPos;

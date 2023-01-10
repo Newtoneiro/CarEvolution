@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
             35, 15
     };
 
-    world.createCars(1);
+    world.createCars(5);
     world.generateFloor();
 
     sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH / 2,
