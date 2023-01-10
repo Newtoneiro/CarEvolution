@@ -1,17 +1,21 @@
 #include "World.h"
+
+#include <memory>
 #include "../config/CarConfig.h"
 
 /*
 Author: Radoslaw Kostrzewski
-Purpose: This is the implemenation of world class responsible for
+Purpose: This is the implemenation of World class responsible for
          providing a space for objects to interact with eachother
 */
+
 World::World() {
     srand(time(0));
-    _world = new b2World(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
+    _world = std::make_shared<b2World>(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
+
 }
 
-void World::createBody(Figure *fig) {
+void World::createBody(const PFigure &fig) {
     b2BodyDef bodyDef = fig->getBodyDef();
     b2Body *newBody = _world->CreateBody(&bodyDef);
     fig->setBody(newBody);
@@ -19,7 +23,8 @@ void World::createBody(Figure *fig) {
     _elements.push_back(fig);
 }
 
-void World::createCar(Car *car) {
+void World::createCar(const PCar &car) {
+    car->setCarAlive(true);
     createBody(car->getCarBody());
     createBody(car->getLeftCircle());
     createBody(car->getRightCircle());
@@ -38,13 +43,15 @@ void World::createCars(int number) {
         for (int j = 0; j < 2; j++) {
             radiuses.push_back(rand() % (CarConfig().maxRadius - CarConfig().minRadius) + CarConfig().minRadius);
         }
-        createCar(new Car(diameters, radiuses));
+        createCar(std::make_shared<Car>(diameters, radiuses));
     }
 }
 
 b2Vec2 World::destroyCars() {
-    b2Vec2 firstCarPos = b2Vec2_zero;
-    for (auto car: _cars) {
+    b2Vec2 firstCarPos = b2Vec2(-100, 0);
+    for (const PCar &car: _cars) {
+        if (!car->isCarAlive()) break;
+
         auto currentPos = car->getCarBody()->getBody()->GetPosition();
         if (std::max(currentPos.x, firstCarPos.x) == currentPos.x) { firstCarPos = currentPos; }
         car->timerStep();
@@ -52,11 +59,11 @@ b2Vec2 World::destroyCars() {
         auto timer = car->getTime();
         if (abs(speed.x) < 1 && abs(speed.y) < 1) {
             if (timer > 3600) {
-                car->timerReset();
                 _world->DestroyBody(car->getCarBody()->getBody());
                 _world->DestroyBody(car->getLeftCircle()->getBody());
                 _world->DestroyBody(car->getRightCircle()->getBody());
-                createCar(car);
+                car->setCarAlive(false);
+                car->timerReset();
             }
         } else {
             car->timerReset();
@@ -66,12 +73,12 @@ b2Vec2 World::destroyCars() {
 }
 
 void World::updateElements() {
-    for (auto &element: _elements) {
+    for (PFigure &element: _elements) {
         element->updateShape();
     }
 }
 
-std::vector<Figure *> World::getElements() { return _elements; }
+std::vector<PFigure> World::getElements() { return _elements; }
 
 void World::step() {
     _world->Step(1.0f / EnviromentConfig::FPS,
@@ -96,7 +103,7 @@ void World::generateFloor() {
         curX += GroundConfig::groundElementWidth / 2 * cos(newAngle);
         curY += GroundConfig::groundElementWidth / 2 * sin(newAngle);
 
-        auto elem = new GroundElement(curX, curY, newAngle);
+        PFigure elem = std::make_shared<GroundElement>(curX, curY, newAngle);
         createBody(elem);
 
         curX += GroundConfig::groundElementWidth / 2 * cos(newAngle);
@@ -105,9 +112,9 @@ void World::generateFloor() {
     }
 }
 
-void World::carCreateWheels(Car *car) {
-    auto *leftWheelJoint = new b2RevoluteJointDef();
-    auto *rightWheelJoint = new b2RevoluteJointDef();
+void World::carCreateWheels(const PCar &car) {
+    PJoint leftWheelJoint = std::make_shared<b2RevoluteJointDef>();
+    PJoint rightWheelJoint = std::make_shared<b2RevoluteJointDef>();
 
     _joints.push_back(leftWheelJoint);
     _joints.push_back(rightWheelJoint);
@@ -127,20 +134,9 @@ void World::carCreateWheels(Car *car) {
     leftWheelJoint->Initialize(leftWheelJoint->bodyA, leftWheelJoint->bodyB, leftWheelJoint->localAnchorA);
     rightWheelJoint->Initialize(rightWheelJoint->bodyA, rightWheelJoint->bodyB, rightWheelJoint->localAnchorA);
 
-    _world->CreateJoint(leftWheelJoint);
-    _world->CreateJoint(rightWheelJoint);
+    _world->CreateJoint(leftWheelJoint.get());
+    _world->CreateJoint(rightWheelJoint.get());
 }
 
 
-World::~World() {
-    for (auto elem: _elements) {
-        delete (elem);
-    }
-    for (auto car: _cars) {
-        delete (car);
-    }
-    for (auto joint: _joints) {
-        delete (joint);
-    }
-    delete (_world);
-};
+World::~World() = default;

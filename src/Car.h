@@ -1,6 +1,7 @@
 #ifndef CAREVOLUTION_CAR_H
 #define CAREVOLUTION_CAR_H
 
+#include <memory>
 #include "Figure.h"
 #include "Circle.h"
 #include "CarBody.h"
@@ -10,6 +11,11 @@ Autor: Bartosz Latosek
 Cel: Plik naglowkowy samochodu - obiektu reprezentującego
     samochod
 */
+
+typedef std::shared_ptr<Figure> PFigure;
+typedef std::shared_ptr<CarBody> PCarBody;
+typedef std::shared_ptr<Circle> PCircle;
+
 class Car : public Figure {
 public:
     Car(const std::vector<unsigned int> &bodyRadiuses,
@@ -21,11 +27,11 @@ public:
 
     void updateShape() override;
 
-    CarBody *getCarBody();
+    PCarBody getCarBody();
 
-    Circle *getLeftCircle();
+    PCircle getLeftCircle();
 
-    Circle *getRightCircle();
+    PCircle getRightCircle();
 
     sf::Shape &getShape() override;
 
@@ -35,12 +41,18 @@ public:
 
     void timerReset();
 
+    bool isCarAlive();
+
+    void setCarAlive(bool alive);
+
+
 private:
-    CarBody *_carBody;
-    Circle *_leftCircle;
-    Circle *_rightCircle;
+    PCarBody _carBody;
+    PCircle _leftCircle;
+    PCircle _rightCircle;
 
     int _timer = 0;
+    bool isAlive = true;
 };
 
 

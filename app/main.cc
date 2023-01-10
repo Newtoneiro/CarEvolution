@@ -4,7 +4,6 @@
 
 #include "../src/CarBody.h"
 #include "../src/Car.h"
-#include "../src/Circle.h"
 #include "../src/World.h"
 
 #include "../config/EnviromentConfig.h"
@@ -45,7 +44,7 @@ int main(int argc, char *argv[]) {
             35, 15
     };
 
-    world.createCars(20);
+    world.createCars(1);
     world.generateFloor();
 
     sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH / 2,

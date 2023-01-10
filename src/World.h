@@ -1,6 +1,8 @@
 #ifndef CAREVOLUTION_WORLD_H
 #define CAREVOLUTION_WORLD_H
 
+#include <memory>
+
 #include "../config/GroundConfig.h"
 #include "../config/EnviromentConfig.h"
 
@@ -17,15 +19,22 @@ Author: Radoslaw Kostrzewski
 Purpose: This is the header file of world class responsible for
          providing a space for objects to interact with eachother
 */
+
+typedef std::shared_ptr<b2World> PWorld;
+typedef std::shared_ptr<Figure> PFigure;
+typedef std::shared_ptr<Car> PCar;
+typedef std::shared_ptr<b2RevoluteJointDef> PJoint;
+
 class World {
+
 public:
     explicit World();
 
     ~World();
 
-    void createBody(Figure *fig);
+    void createBody(const PFigure &fig);
 
-    void createCar(Car *car);
+    void createCar(const PCar &car);
 
     void createCars(int number);
 
@@ -33,7 +42,7 @@ public:
 
     void updateElements();
 
-    std::vector<Figure *> getElements();
+    std::vector<PFigure> getElements();
 
     void step();
 
@@ -42,12 +51,12 @@ public:
 private:
     static constexpr float maxStope = 40.0f;
 
-    void carCreateWheels(Car *car);
+    void carCreateWheels(const PCar &car);
 
-    b2World *_world;
-    std::vector<Figure *> _elements;
-    std::vector<Car *> _cars;
-    std::vector<b2RevoluteJointDef *> _joints;
+    PWorld _world;
+    std::vector<PFigure> _elements;
+    std::vector<PCar> _cars;
+    std::vector<PJoint> _joints;
 
 };
 

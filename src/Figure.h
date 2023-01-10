@@ -9,6 +9,8 @@ Author: Bartosz Latosek
 Purpose: This is header file for base class for all figures - dynamic objects
          that can interact with eachothers using rules of physics
 */
+
+
 class Figure {
 public:
     Figure();

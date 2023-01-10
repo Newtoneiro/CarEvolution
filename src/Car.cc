@@ -7,9 +7,9 @@ Cel: Plik implementujący samochod - obiektu reprezentującego
 */
 Car::Car(const std::vector<unsigned int> &bodyRadiuses,
          const std::vector<float> &wheelRadiuses) {
-    _carBody = new CarBody(bodyRadiuses);
-    _leftCircle = new Circle(wheelRadiuses[0], _carBody->getLeftWheel().x, _carBody->getLeftWheel().y);
-    _rightCircle = new Circle(wheelRadiuses[1], _carBody->getRightWheel().x, _carBody->getRightWheel().y);
+    _carBody = std::make_shared<CarBody>(bodyRadiuses);
+    _leftCircle = std::make_shared<Circle>(wheelRadiuses[0], _carBody->getLeftWheel().x, _carBody->getLeftWheel().y);
+    _rightCircle = std::make_shared<Circle>(wheelRadiuses[1], _carBody->getRightWheel().x, _carBody->getRightWheel().y);
 }
 
 Car::~Car() = default;
@@ -26,15 +26,15 @@ void Car::updateShape() {
     _rightCircle->updateShape();
 }
 
-CarBody *Car::getCarBody() {
+PCarBody Car::getCarBody() {
     return _carBody;
 }
 
-Circle *Car::getLeftCircle() {
+PCircle Car::getLeftCircle() {
     return _leftCircle;
 }
 
-Circle *Car::getRightCircle() {
+PCircle Car::getRightCircle() {
     return _rightCircle;
 }
 
@@ -51,3 +51,12 @@ void Car::timerReset() {
 void Car::timerStep() {
     _timer++;
 }
+
+bool Car::isCarAlive() {
+    return isAlive;
+}
+
+void Car::setCarAlive(bool alive) {
+    isAlive = alive;
+}
+
