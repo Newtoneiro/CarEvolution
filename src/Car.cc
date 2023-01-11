@@ -21,9 +21,11 @@ void Car::createBody() {
 }
 
 void Car::updateShape() {
-    _carBody->updateShape();
-    _leftCircle->updateShape();
-    _rightCircle->updateShape();
+    if (isAlive){
+        _carBody->updateShape();
+        _leftCircle->updateShape();
+        _rightCircle->updateShape();
+    }
 }
 
 PCarBody Car::getCarBody() {
@@ -56,7 +58,13 @@ bool Car::isCarAlive() {
     return isAlive;
 }
 
-void Car::setCarAlive(bool alive) {
+void Car::setIsCarAlive(bool alive) {
     isAlive = alive;
+    if (!alive){
+        getCarBody()->getShape().setFillColor(sf::Color::Blue);
+    }
+    else {
+        getCarBody()->getShape().setFillColor(sf::Color::White);
+    }
 }
 

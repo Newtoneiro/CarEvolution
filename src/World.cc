@@ -12,7 +12,6 @@ Purpose: This is the implemenation of World class responsible for
 World::World() {
     srand(time(0));
     _world = std::make_shared<b2World>(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
-
 }
 
 void World::createBody(const PFigure &fig) {
@@ -25,7 +24,7 @@ void World::createBody(const PFigure &fig) {
 
 
 void World::createCar(const PCar &car) {
-    car->setCarAlive(true);
+    car->setIsCarAlive(true);
     createBody(car->getCarBody());
     createBody(car->getLeftCircle());
     createBody(car->getRightCircle());
@@ -39,7 +38,7 @@ void World::respawnCar(const PCar &car) {
     car->getCarBody()->getBody()->SetTransform(b2Vec2_zero, 0.0f);
     car->getLeftCircle()->getBody()->SetTransform(leftWheelPos, 0.0f);
     car->getRightCircle()->getBody()->SetTransform(rightWheelPos, 0.0f);
-    car->setCarAlive(true);
+    car->setIsCarAlive(true);
 }
 
 void World::createCars(int number) {
@@ -59,27 +58,28 @@ void World::createCars(int number) {
 
 b2Vec2 World::destroyCars() {
     b2Vec2 firstCarPos = b2Vec2(-100, 0);
-    bool areCarsAlive = false;
+
     for (const PCar &car: _cars) {
-        if (!areCarsAlive) areCarsAlive = car->isCarAlive();
         if (!car->isCarAlive()) continue;
 
         auto currentPos = car->getCarBody()->getBody()->GetPosition();
-        if (std::max(currentPos.x, firstCarPos.x) == currentPos.x) { firstCarPos = currentPos; }
+        if (currentPos.x > firstCarPos.x) { firstCarPos = currentPos; }
         car->timerStep();
         auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
         auto timer = car->getTime();
         if (abs(speed.x) < 1 && abs(speed.y) < 1) {
-            if (timer > 3600) {
+            car->increaseInertiaTimer();
+            if (car->isDeadFromInertia() || timer > EnviromentConfig::MAX_TIME_ALIVE) {
                 car->timerReset();
-                car->setCarAlive(false);
-//                destroyCar(car);
+                car->inertiaTimerReset();
+                car->setIsCarAlive(false);
+                // destroyCar(car);
             }
         } else {
             car->timerReset();
         }
     }
-    if (!areCarsAlive) {
+    if (std::all_of(_cars.begin(), _cars.end(), [](const PCar& car){return !car->isCarAlive();})) {
         for (auto &car: _cars) {
             respawnCar(car);
         }
@@ -152,6 +152,5 @@ void World::carCreateWheels(const PCar &car) {
     _world->CreateJoint(leftWheelJoint.get());
     _world->CreateJoint(rightWheelJoint.get());
 }
-
 
 World::~World() = default;

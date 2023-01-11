@@ -6,4 +6,6 @@ add_library(Source
         GroundElement.cc GroundElement.h
         CarBody.cc CarBody.h
         Car.cc Car.h
+        EvolutionAlgorithm.cc EvolutionAlgorithm.h
+        WindowHandle.cc WindowHandle.h
         )
