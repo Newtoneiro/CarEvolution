@@ -38,7 +38,7 @@ public:
 
     void createCars(int number);
 
-    b2Vec2 destroyCars();
+    PCar updateCars();
 
     void updateElements();
 
@@ -48,19 +48,24 @@ public:
 
     void generateFloor();
 
-private:
-    static constexpr float maxStope = 60.0f;
+    void respawnCars(const std::vector<Genome> &newPopulationGenome) noexcept;
 
+    void setEndOfEpoch(const bool val) noexcept { _endOfEpoch = val; }
+
+    bool isEndOfEpoch() const noexcept { return _endOfEpoch; }
+
+    std::vector<PCar> getCurrentPopulation() const noexcept { return _cars; };
+
+private:
     void carCreateWheels(const PCar &car);
 
+    void respawnCar(const PCar &car);
+    
     PWorld _world;
     std::vector<PFigure> _elements;
     std::vector<PCar> _cars;
     std::vector<PJoint> _joints;
-
-    void destroyCar(const PCar &car);
-
-    void respawnCar(const PCar &car);
+    bool _endOfEpoch = false;
 };
 
 #endif // CAREVOLUTION_WORLD_H

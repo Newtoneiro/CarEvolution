@@ -38,6 +38,7 @@ sf::Shape &CarBody::getShape() { return _shape; }
 CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) : Figure() {
     _bodyDef.type = b2_dynamicBody;
     _shape.setPointCount(bodyRadiuses.size());
+    _genome = bodyRadiuses;
     
     const b2Vec2 center(100, 100);
     float angle = 0.f;

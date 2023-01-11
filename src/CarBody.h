@@ -24,7 +24,10 @@ public:
 
     sf::Shape &getShape() override;
 
+    std::vector<unsigned int> getGenome() const noexcept { return _genome; };
+
 private:
+    std::vector<unsigned int> _genome;
     b2Vec2 _points[8];
     sf::ConvexShape _shape;
 };

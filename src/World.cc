@@ -22,7 +22,6 @@ void World::createBody(const PFigure &fig) {
     _elements.push_back(fig);
 }
 
-
 void World::createCar(const PCar &car) {
     car->setIsCarAlive(true);
     createBody(car->getCarBody());
@@ -42,28 +41,31 @@ void World::respawnCar(const PCar &car) {
 }
 
 void World::createCars(int number) {
-    srand(time(nullptr));
     for (int i = 0; i < number; i++) {
         std::vector<unsigned int> diameters;
         std::vector<float> radiuses;
         for (int j = 0; j < 8; j++) {
-            diameters.push_back(rand() % (CarConfig().maxDiameter - CarConfig().minDiameter) + CarConfig().minDiameter);
+            diameters.push_back(rand() % (CarConfig::MAX_DIAMETER - CarConfig::MIN_DIAMETER) + CarConfig::MIN_DIAMETER);
         }
         for (int j = 0; j < 2; j++) {
-            radiuses.push_back(rand() % (CarConfig().maxRadius - CarConfig().minRadius) + CarConfig().minRadius);
+            radiuses.push_back(rand() % (CarConfig::MAX_RADIUS - CarConfig::MIN_RADIUS) + CarConfig::MIN_RADIUS);
         }
         createCar(std::make_shared<Car>(diameters, radiuses));
     }
 }
 
-b2Vec2 World::destroyCars() {
+PCar World::updateCars() {
     b2Vec2 firstCarPos = b2Vec2(-100, 0);
+    PCar eliteCar;
 
-    for (const PCar &car: _cars) {
+    for (PCar &car: _cars) {
         if (!car->isCarAlive()) continue;
 
         auto currentPos = car->getCarBody()->getBody()->GetPosition();
-        if (currentPos.x > firstCarPos.x) { firstCarPos = currentPos; }
+        if (currentPos.x > firstCarPos.x) { 
+            firstCarPos = currentPos;
+            eliteCar = car;
+        }
         car->timerStep();
         auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
         auto timer = car->getTime();
@@ -80,11 +82,9 @@ b2Vec2 World::destroyCars() {
         }
     }
     if (std::all_of(_cars.begin(), _cars.end(), [](const PCar& car){return !car->isCarAlive();})) {
-        for (auto &car: _cars) {
-            respawnCar(car);
-        }
+        setEndOfEpoch(true);
     }
-    return firstCarPos;
+    return eliteCar;
 }
 
 void World::updateElements() {
@@ -106,7 +106,7 @@ void World::generateFloor() {
     float curY = 400.0f;
     for (int i = 0; i < 100; i++) {
         // Generating random angle from -maxStope to maxStope
-        float newAngle = (-maxStope + (rand() % int(2 * maxStope - 1)));
+        float newAngle = (-GroundConfig::MAX_STOPE + (rand() % int(2 * GroundConfig::MAX_STOPE - 1)));
 
         // Converting to radians
         newAngle = (newAngle / 180) * M_PI;
@@ -124,6 +124,14 @@ void World::generateFloor() {
         curX += GroundConfig::groundElementWidth / 2 * cos(newAngle);
         curY += GroundConfig::groundElementWidth / 2 * sin(newAngle);
 
+    }
+}
+
+void World::respawnCars(const std::vector<Genome> &newPopulationGenome) noexcept {
+    std::vector<PCar> newPopulation;
+    _cars = newPopulation;
+    for (const Genome genome: newPopulationGenome) {
+        createCar(std::make_shared<Car>(genome.first, genome.second));
     }
 }
 

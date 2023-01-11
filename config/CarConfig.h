@@ -2,10 +2,10 @@
 #define CAREVOLUTION_CARCONFIG_H
 
 struct CarConfig {
-    const unsigned int minRadius = 10;
-    const unsigned int maxRadius = 30;
-    const unsigned int minDiameter = 25;
-    const unsigned int maxDiameter = 75;
+    static constexpr unsigned int MIN_RADIUS = 10;
+    static constexpr unsigned int MAX_RADIUS = 30;
+    static constexpr unsigned int MIN_DIAMETER = 25;
+    static constexpr unsigned int MAX_DIAMETER = 75;
 };
 
 #endif //CAREVOLUTION_CARCONFIG_H

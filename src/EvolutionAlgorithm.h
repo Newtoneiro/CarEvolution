@@ -13,12 +13,16 @@ class EvolutionAlgorithm {
 public:
     void init() noexcept;
 
-    b2Vec2 step() noexcept;
+    b2Vec2 updateWorld() noexcept;
 
     std::vector<PFigure> getWorldElements() noexcept;
 
 private:
     void worldStep() noexcept;
+
+    void generateNewEpoch(const PCar eliteCar) noexcept;
+
+    void selection(std::vector<Genome> &newPopulationGenome, const std::vector<PCar> &oldPopulation) noexcept;
 
     std::shared_ptr<World> _world;
 };

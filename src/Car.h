@@ -17,6 +17,7 @@ Cel: Plik naglowkowy samochodu - obiektu reprezentującego
 typedef std::shared_ptr<Figure> PFigure;
 typedef std::shared_ptr<CarBody> PCarBody;
 typedef std::shared_ptr<Circle> PCircle;
+typedef std::pair<std::vector<unsigned int>, std::vector<float>> Genome;
 
 class Car : public Figure {
 public:
@@ -29,11 +30,11 @@ public:
 
     void updateShape() override;
 
-    PCarBody getCarBody();
+    PCarBody getCarBody() const noexcept;
 
-    PCircle getLeftCircle();
+    PCircle getLeftCircle() const noexcept;
 
-    PCircle getRightCircle();
+    PCircle getRightCircle() const noexcept;
 
     sf::Shape &getShape() override;
 
@@ -53,6 +54,9 @@ public:
 
     bool isDeadFromInertia() noexcept { return _inertiaTimer > EnviromentConfig::MAX_TIME_ALIVE_INERTIA; };
 
+    Genome getGenome() const noexcept;
+
+    std::vector<float> getWheelsGenome() const noexcept;
 private:
     PCarBody _carBody;
     PCircle _leftCircle;

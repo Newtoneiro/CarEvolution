@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
                 windowHandle.close();
         }
 
-        b2Vec2 view_pos = algorithm.step();
+        b2Vec2 view_pos = algorithm.updateWorld();
         windowHandle.step(view_pos, algorithm.getWorldElements());
     }
     return EXIT_SUCCESS;

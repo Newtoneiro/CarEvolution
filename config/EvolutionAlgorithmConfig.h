@@ -8,8 +8,9 @@ Cel: Plik zawierajacy zmienne konfiguracyjne dotyczace algorytmu ewolucyjnego
 */
 class EvolutionAlgorithmConfig {
 public:
-    static constexpr int INITIAL_POPULATION_SIZE = 5;
-    static constexpr int NO_EPOCHS = 10;
+    static constexpr unsigned int INITIAL_POPULATION_SIZE = 5;
+    static constexpr unsigned int POPULATION_SIZE = 5;
+    static constexpr unsigned int NO_EPOCHS = 10;
     static constexpr float MUTATION_PROB = 0.6;
 };
 

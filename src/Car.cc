@@ -28,15 +28,15 @@ void Car::updateShape() {
     }
 }
 
-PCarBody Car::getCarBody() {
+PCarBody Car::getCarBody() const noexcept {
     return _carBody;
 }
 
-PCircle Car::getLeftCircle() {
+PCircle Car::getLeftCircle() const noexcept {
     return _leftCircle;
 }
 
-PCircle Car::getRightCircle() {
+PCircle Car::getRightCircle() const noexcept{
     return _rightCircle;
 }
 
@@ -66,5 +66,17 @@ void Car::setIsCarAlive(bool alive) {
     else {
         getCarBody()->getShape().setFillColor(sf::Color::White);
     }
+}
+
+Genome Car::getGenome() const noexcept {
+    return std::make_pair(getCarBody()->getGenome(), getWheelsGenome());
+}
+
+std::vector<float> Car::getWheelsGenome() const noexcept {
+    std::vector<float> wheelRadiuses;
+    wheelRadiuses.push_back(getLeftCircle()->getRadius());
+    wheelRadiuses.push_back(getRightCircle()->getRadius());
+
+    return wheelRadiuses;
 }
 
