@@ -21,7 +21,7 @@ void Car::createBody() {
 }
 
 void Car::updateShape() {
-    if (isAlive){
+    if (isAlive) {
         _carBody->updateShape();
         _leftCircle->updateShape();
         _rightCircle->updateShape();
@@ -36,7 +36,7 @@ PCircle Car::getLeftCircle() const noexcept {
     return _leftCircle;
 }
 
-PCircle Car::getRightCircle() const noexcept{
+PCircle Car::getRightCircle() const noexcept {
     return _rightCircle;
 }
 
@@ -51,7 +51,7 @@ void Car::timerReset() {
 }
 
 void Car::timerStep() {
-    _timer++;
+    ++_timer;
 }
 
 bool Car::isCarAlive() {
@@ -60,10 +60,9 @@ bool Car::isCarAlive() {
 
 void Car::setIsCarAlive(bool alive) {
     isAlive = alive;
-    if (!alive){
+    if (!alive) {
         getCarBody()->getShape().setFillColor(sf::Color::Blue);
-    }
-    else {
+    } else {
         getCarBody()->getShape().setFillColor(sf::Color::White);
     }
 }

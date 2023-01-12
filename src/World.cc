@@ -14,16 +14,18 @@ World::World() {
     _world = std::make_shared<b2World>(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
 }
 
-void World::createBody(const PFigure &fig) {
+void World::createBody(const PFigure &fig, bool isGround = false) {
     b2BodyDef bodyDef = fig->getBodyDef();
     b2Body *newBody = _world->CreateBody(&bodyDef);
     fig->setBody(newBody);
     fig->createBody();
     _elements.push_back(fig);
+    if (isGround) {
+        _ground.push_back(fig);
+    }
 }
 
 void World::createCar(const PCar &car) {
-    car->setIsCarAlive(true);
     createBody(car->getCarBody());
     createBody(car->getLeftCircle());
     createBody(car->getRightCircle());
@@ -31,23 +33,21 @@ void World::createCar(const PCar &car) {
     _cars.push_back(car);
 }
 
-void World::respawnCar(const PCar &car) {
-    b2Vec2 rightWheelPos = car->getCarBody()->getRightWheel();
-    b2Vec2 leftWheelPos = car->getCarBody()->getLeftWheel();
-    car->getCarBody()->getBody()->SetTransform(b2Vec2_zero, 0.0f);
-    car->getLeftCircle()->getBody()->SetTransform(leftWheelPos, 0.0f);
-    car->getRightCircle()->getBody()->SetTransform(rightWheelPos, 0.0f);
-    car->setIsCarAlive(true);
+void World::destroyCar(const PCar &car) {
+    _world->DestroyBody(car->getCarBody()->getBody());
+    _world->DestroyBody(car->getLeftCircle()->getBody());
+    _world->DestroyBody(car->getRightCircle()->getBody());
 }
 
+
 void World::createCars(int number) {
-    for (int i = 0; i < number; i++) {
+    for (int i = 0; i < number; ++i) {
         std::vector<unsigned int> diameters;
         std::vector<float> radiuses;
-        for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 8; ++j) {
             diameters.push_back(rand() % (CarConfig::MAX_DIAMETER - CarConfig::MIN_DIAMETER) + CarConfig::MIN_DIAMETER);
         }
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < 2; ++j) {
             radiuses.push_back(rand() % (CarConfig::MAX_RADIUS - CarConfig::MIN_RADIUS) + CarConfig::MIN_RADIUS);
         }
         createCar(std::make_shared<Car>(diameters, radiuses));
@@ -62,26 +62,23 @@ PCar World::updateCars() {
         if (!car->isCarAlive()) continue;
 
         auto currentPos = car->getCarBody()->getBody()->GetPosition();
-        if (currentPos.x > firstCarPos.x) { 
+        if (currentPos.x > firstCarPos.x) {
             firstCarPos = currentPos;
             eliteCar = car;
         }
         car->timerStep();
         auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
         auto timer = car->getTime();
-        if (abs(speed.x) < 1 && abs(speed.y) < 1) {
-            car->increaseInertiaTimer();
-            if (car->isDeadFromInertia() || timer > EnviromentConfig::MAX_TIME_ALIVE) {
+        if (abs(speed.x) < EnviromentConfig::MINIMAL_SPEED && abs(speed.y) < EnviromentConfig::MINIMAL_SPEED) {
+            if (timer > EnviromentConfig::MAX_TIME_ALIVE) {
                 car->timerReset();
-                car->inertiaTimerReset();
                 car->setIsCarAlive(false);
-                // destroyCar(car);
             }
         } else {
             car->timerReset();
         }
     }
-    if (std::all_of(_cars.begin(), _cars.end(), [](const PCar& car){return !car->isCarAlive();})) {
+    if (std::all_of(_cars.begin(), _cars.end(), [](const PCar &car) { return !car->isCarAlive(); })) {
         setEndOfEpoch(true);
     }
     return eliteCar;
@@ -93,7 +90,9 @@ void World::updateElements() {
     }
 }
 
-std::vector<PFigure> World::getElements() { return _elements; }
+std::vector<PFigure> World::getElements() {
+    return _elements;
+}
 
 void World::step() {
     _world->Step(1.0f / EnviromentConfig::FPS,
@@ -102,34 +101,39 @@ void World::step() {
 }
 
 void World::generateFloor() {
-    float curX = 0.0f;
-    float curY = 400.0f;
-    for (int i = 0; i < 100; i++) {
+    float curX = GroundConfig::GROUND_STARTING_X;
+    float curY = GroundConfig::GROUND_STARTING_Y;
+    for (int i = 0; i < GroundConfig::GROUND_ELEMENTS_NUMBER; ++i) {
         // Generating random angle from -maxStope to maxStope
         float newAngle = (-GroundConfig::MAX_STOPE + (rand() % int(2 * GroundConfig::MAX_STOPE - 1)));
 
         // Converting to radians
         newAngle = (newAngle / 180) * M_PI;
 
-        if (i < 2) {
+        if (i < GroundConfig::GROUND_MARGIN) {
             newAngle = 0;
         }
 
-        curX += GroundConfig::groundElementWidth / 2 * cos(newAngle);
-        curY += GroundConfig::groundElementWidth / 2 * sin(newAngle);
+        curX += GroundConfig::GROUND_ELEMENT_WIDTH / 2 * cos(newAngle);
+        curY += GroundConfig::GROUND_ELEMENT_WIDTH / 2 * sin(newAngle);
 
         PFigure elem = std::make_shared<GroundElement>(curX, curY, newAngle);
-        createBody(elem);
+        createBody(elem, true);
 
-        curX += GroundConfig::groundElementWidth / 2 * cos(newAngle);
-        curY += GroundConfig::groundElementWidth / 2 * sin(newAngle);
+        curX += GroundConfig::GROUND_ELEMENT_WIDTH / 2 * cos(newAngle);
+        curY += GroundConfig::GROUND_ELEMENT_WIDTH / 2 * sin(newAngle);
 
     }
 }
 
 void World::respawnCars(const std::vector<Genome> &newPopulationGenome) noexcept {
-    std::vector<PCar> newPopulation;
-    _cars = newPopulation;
+    for (const auto &car: _cars) {
+        destroyCar(car);
+    }
+    _cars.clear();
+    _joints.clear();
+    _elements.clear();
+    std::copy(_ground.begin(), _ground.end(), std::back_inserter(_elements));
     for (const Genome genome: newPopulationGenome) {
         createCar(std::make_shared<Car>(genome.first, genome.second));
     }

@@ -32,7 +32,7 @@ public:
 
     ~World();
 
-    void createBody(const PFigure &fig);
+    void createBody(const PFigure &fig, bool isGround);
 
     void createCar(const PCar &car);
 
@@ -59,13 +59,14 @@ public:
 private:
     void carCreateWheels(const PCar &car);
 
-    void respawnCar(const PCar &car);
-    
     PWorld _world;
     std::vector<PFigure> _elements;
+    std::vector<PFigure> _ground;
     std::vector<PCar> _cars;
     std::vector<PJoint> _joints;
     bool _endOfEpoch = false;
+
+    void destroyCar(const PCar &car);
 };
 
 #endif // CAREVOLUTION_WORLD_H

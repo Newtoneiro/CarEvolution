@@ -39,7 +39,7 @@ CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) : Figure() {
     _bodyDef.type = b2_dynamicBody;
     _shape.setPointCount(bodyRadiuses.size());
     _genome = bodyRadiuses;
-    
+
     const b2Vec2 center(100, 100);
     float angle = 0.f;
     int i = 0;
@@ -48,6 +48,6 @@ CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) : Figure() {
         _points[i] = newPoint;
         _shape.setPoint(i, sf::Vector2f(newPoint.x, newPoint.y));
         angle += M_PI / 4;
-        i++;
+        ++i;
     }
 }

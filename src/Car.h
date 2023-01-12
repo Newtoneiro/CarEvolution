@@ -48,11 +48,6 @@ public:
 
     void setIsCarAlive(bool alive);
 
-    void inertiaTimerReset() noexcept { _inertiaTimer = 0; };
-
-    void increaseInertiaTimer() noexcept { _inertiaTimer++; };
-
-    bool isDeadFromInertia() noexcept { return _inertiaTimer > EnviromentConfig::MAX_TIME_ALIVE_INERTIA; };
 
     Genome getGenome() const noexcept;
 
@@ -63,7 +58,6 @@ private:
     PCircle _rightCircle;
 
     int _timer = 0;
-    int _inertiaTimer = 0;
     bool isAlive = true;
 };
 
