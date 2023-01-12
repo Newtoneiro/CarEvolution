@@ -6,9 +6,10 @@ Cel: Plik z implementacja WindowHandle - dekoratora do kontrolowania wyswietlani
      swiata.
 */
 WindowHandle::WindowHandle() noexcept
-    :sf::RenderWindow(sf::VideoMode({EnviromentConfig::WINDOW_WIDTH, EnviromentConfig::WINDOW_HEIGHT}), "SFML window") {
+        : sf::RenderWindow(sf::VideoMode({EnviromentConfig::WINDOW_WIDTH, EnviromentConfig::WINDOW_HEIGHT}),
+                           "SFML window") {
 
-    sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH  / 2,
+    sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH / 2,
                                EnviromentConfig::WINDOW_HEIGHT / 2),
                   sf::Vector2f(EnviromentConfig::WINDOW_WIDTH,
                                EnviromentConfig::WINDOW_HEIGHT));
@@ -18,7 +19,7 @@ WindowHandle::WindowHandle() noexcept
 }
 
 void WindowHandle::step(const b2Vec2 view_pos, const std::vector<PFigure> elements) noexcept {
-    _view->setCenter(view_pos.x + 100, view_pos.y + 100);
+    _view->setCenter(view_pos.x + 100, view_pos.y);
     setView(*_view);
     clear();
     for (auto shape: elements) {

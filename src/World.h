@@ -56,8 +56,14 @@ public:
 
     std::vector<PCar> getCurrentPopulation() const noexcept { return _cars; };
 
+    b2Vec2 getCameraPosition();
+
 private:
     void carCreateWheels(const PCar &car);
+
+    void destroyCar(const PCar &car);
+
+    static void checkIfCarIsAlive(const PCar &car);
 
     PWorld _world;
     std::vector<PFigure> _elements;
@@ -65,8 +71,8 @@ private:
     std::vector<PCar> _cars;
     std::vector<PJoint> _joints;
     bool _endOfEpoch = false;
+    PCar _bestAliveCar;
 
-    void destroyCar(const PCar &car);
 };
 
 #endif // CAREVOLUTION_WORLD_H

@@ -17,7 +17,7 @@ b2Vec2 EvolutionAlgorithm::updateWorld() noexcept {
     worldStep();
     PCar eliteCar = _world->updateCars();
     if (_world->isEndOfEpoch()) generateNewEpoch(eliteCar);
-    return eliteCar->getCarBody()->getBody()->GetPosition();
+    return _world->getCameraPosition();
 }
 
 std::vector<PFigure> EvolutionAlgorithm::getWorldElements() noexcept {
@@ -35,26 +35,26 @@ void EvolutionAlgorithm::generateNewEpoch(const PCar eliteCar) noexcept {
     selection(newPopulationGenome, _world->getCurrentPopulation());
     crossover(newPopulationGenome);
     mutation(newPopulationGenome);
-    
+
     newPopulationGenome.push_back(eliteCar->getGenome());
 
     _world->respawnCars(newPopulationGenome);
     _world->setEndOfEpoch(false);
 }
 
-void EvolutionAlgorithm::selection(std::vector<Genome> &newPopulationGenome, const std::vector<PCar> &oldPopulation) noexcept{
+void EvolutionAlgorithm::selection(std::vector<Genome> &newPopulationGenome,
+                                   const std::vector<PCar> &oldPopulation) noexcept {
     while (newPopulationGenome.size() != EvolutionAlgorithmConfig::POPULATION_SIZE - 1) {
         const unsigned int firstCarIndex = rand() % (oldPopulation.size() - 1);
         const unsigned int secondCarIndex = rand() % (oldPopulation.size() - 1);
-        
+
         const b2Vec2 firstCarPos = oldPopulation[firstCarIndex]->getCarBody()->getBody()->GetPosition();
         const b2Vec2 secondCarPos = oldPopulation[secondCarIndex]->getCarBody()->getBody()->GetPosition();
 
         unsigned int winnerIndex;
         if (firstCarPos.x > secondCarPos.x) {
             winnerIndex = firstCarIndex;
-        }
-        else {
+        } else {
             winnerIndex = secondCarIndex;
         }
 
@@ -62,20 +62,20 @@ void EvolutionAlgorithm::selection(std::vector<Genome> &newPopulationGenome, con
     }
 }
 
-void EvolutionAlgorithm::crossover(std::vector<Genome> &newPopulationGenome) const noexcept{
-    for (auto &subject : newPopulationGenome) {
-        float crossoverProb = (float)rand() / (float)RAND_MAX;
+void EvolutionAlgorithm::crossover(std::vector<Genome> &newPopulationGenome) const noexcept {
+    for (auto &subject: newPopulationGenome) {
+        float crossoverProb = (float) rand() / (float) RAND_MAX;
         if (crossoverProb < EvolutionAlgorithmConfig::CROSSOVER_PROB) {
             const unsigned int parentIndex = rand() % (newPopulationGenome.size() - 1);
             Genome parentGenome = newPopulationGenome[parentIndex];
             // Crossover bodyRadiuses
             std::vector<unsigned int> newBodyRadiuses;
-            for (int i = 0; i < 8; ++i){
+            for (int i = 0; i < 8; ++i) {
                 newBodyRadiuses.push_back(int((subject.first[i] + parentGenome.first[i]) / 2));
             }
             // Crossover wheelRadiuses
             std::vector<float> newWheelRadiuses;
-            for (int i = 0; i < 2; ++i){
+            for (int i = 0; i < 2; ++i) {
                 newWheelRadiuses.push_back((subject.second[i] + parentGenome.second[i]) / 2);
             }
             Genome ancestorGenome = std::make_pair(newBodyRadiuses, newWheelRadiuses);
@@ -84,31 +84,33 @@ void EvolutionAlgorithm::crossover(std::vector<Genome> &newPopulationGenome) con
     }
 }
 
-void EvolutionAlgorithm::mutation(std::vector<Genome> &newPopulationGenome) const noexcept{
-    for (auto &subject : newPopulationGenome) {
+void EvolutionAlgorithm::mutation(std::vector<Genome> &newPopulationGenome) const noexcept {
+    for (auto &subject: newPopulationGenome) {
         // Mutate bodyRadiuses
         std::vector<unsigned int> newBodyRadiuses;
-        for (int i = 0; i < 8; ++i){
-            float mutationProb = (float)rand() / (float)RAND_MAX;
+        for (int i = 0; i < 8; ++i) {
+            float mutationProb = (float) rand() / (float) RAND_MAX;
             unsigned int oldBodyRadius = subject.first[i];
             if (mutationProb < EvolutionAlgorithmConfig::MUTATION_PROB) {
-                oldBodyRadius += (rand() % 
-                    (2 * EvolutionAlgorithmConfig::MAX_BODY_RADIUS_MUTATION + 1) - EvolutionAlgorithmConfig::MAX_BODY_RADIUS_MUTATION);
-                oldBodyRadius = std::min(oldBodyRadius, CarConfig::MAX_RADIUS);
-                oldBodyRadius = std::max(oldBodyRadius, CarConfig::MIN_RADIUS);
+                oldBodyRadius += (rand() %
+                                  (2 * EvolutionAlgorithmConfig::MAX_BODY_RADIUS_MUTATION + 1) -
+                                  EvolutionAlgorithmConfig::MAX_BODY_RADIUS_MUTATION);
+                oldBodyRadius = std::min(oldBodyRadius, CarConfig::MAX_BODY_RADIUS);
+                oldBodyRadius = std::max(oldBodyRadius, CarConfig::MIN_BODY_RADIUS);
             }
             newBodyRadiuses.push_back(oldBodyRadius);
         }
         // Mutate wheelRadiuses
         std::vector<float> newWheelRadiuses;
-        for (int i = 0; i < 2; ++i){
-            float mutationProb = (float)rand() / (float)RAND_MAX;
+        for (int i = 0; i < 2; ++i) {
+            float mutationProb = (float) rand() / (float) RAND_MAX;
             unsigned int oldWheelRadius = subject.second[i];
             if (mutationProb < EvolutionAlgorithmConfig::MUTATION_PROB) {
-                oldWheelRadius += (rand() % 
-                    (2 * EvolutionAlgorithmConfig::MAX_WHEEL_RADIUS_MUTATION + 1) - EvolutionAlgorithmConfig::MAX_BODY_RADIUS_MUTATION);
-                oldWheelRadius = std::min(oldWheelRadius, CarConfig::MAX_DIAMETER);
-                oldWheelRadius = std::max(oldWheelRadius, CarConfig::MIN_DIAMETER);
+                oldWheelRadius += (rand() %
+                                   (2 * EvolutionAlgorithmConfig::MAX_WHEEL_RADIUS_MUTATION + 1) -
+                                   EvolutionAlgorithmConfig::MAX_BODY_RADIUS_MUTATION);
+                oldWheelRadius = std::min(oldWheelRadius, CarConfig::MAX_WHEEL_RADIUS);
+                oldWheelRadius = std::max(oldWheelRadius, CarConfig::MIN_WHEEL_RADIUS);
             }
             newWheelRadiuses.push_back(oldWheelRadius);
         }

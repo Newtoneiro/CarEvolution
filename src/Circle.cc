@@ -34,10 +34,12 @@ void Circle::createBody() {
 }
 
 void Circle::updateShape() {
-    b2Vec2 position = _body->GetPosition();
-    _shape.setPosition(sf::Vector2f(position.x, position.y));
-    // Let the circle spin
-    _body->SetAngularVelocity(1.0f);
+    if (isAlive()) {
+        b2Vec2 position = _body->GetPosition();
+        _shape.setPosition(sf::Vector2f(position.x, position.y));
+        // Let the circle spin
+        _body->SetAngularVelocity(1.0f);
+    }
 }
 
 sf::Shape &Circle::getShape() { return _shape; }

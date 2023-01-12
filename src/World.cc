@@ -45,13 +45,30 @@ void World::createCars(int number) {
         std::vector<unsigned int> diameters;
         std::vector<float> radiuses;
         for (int j = 0; j < 8; ++j) {
-            diameters.push_back(rand() % (CarConfig::MAX_DIAMETER - CarConfig::MIN_DIAMETER) + CarConfig::MIN_DIAMETER);
+            diameters.push_back(
+                    rand() % (CarConfig::MAX_BODY_RADIUS - CarConfig::MIN_BODY_RADIUS) + CarConfig::MIN_BODY_RADIUS);
         }
         for (int j = 0; j < 2; ++j) {
-            radiuses.push_back(rand() % (CarConfig::MAX_RADIUS - CarConfig::MIN_RADIUS) + CarConfig::MIN_RADIUS);
+            radiuses.push_back(
+                    rand() % (CarConfig::MAX_WHEEL_RADIUS - CarConfig::MIN_WHEEL_RADIUS) + CarConfig::MIN_WHEEL_RADIUS);
         }
         createCar(std::make_shared<Car>(diameters, radiuses));
     }
+}
+
+void World::checkIfCarIsAlive(const PCar &car) {
+    car->timerStep();
+    auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
+    auto timer = car->getTime();
+    if (abs(speed.x) < EnviromentConfig::MINIMAL_SPEED && abs(speed.y) < EnviromentConfig::MINIMAL_SPEED) {
+        if (timer > EnviromentConfig::MAX_TIME_ALIVE) {
+            car->timerReset();
+            car->setIsCarAlive(false);
+        }
+    } else {
+        car->timerReset();
+    }
+
 }
 
 PCar World::updateCars() {
@@ -59,24 +76,23 @@ PCar World::updateCars() {
     PCar eliteCar;
 
     for (PCar &car: _cars) {
-        if (!car->isCarAlive()) continue;
-
+        if (_bestAliveCar == nullptr) {
+            _bestAliveCar = car;
+        }
         auto currentPos = car->getCarBody()->getBody()->GetPosition();
         if (currentPos.x > firstCarPos.x) {
             firstCarPos = currentPos;
             eliteCar = car;
         }
-        car->timerStep();
-        auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
-        auto timer = car->getTime();
-        if (abs(speed.x) < EnviromentConfig::MINIMAL_SPEED && abs(speed.y) < EnviromentConfig::MINIMAL_SPEED) {
-            if (timer > EnviromentConfig::MAX_TIME_ALIVE) {
-                car->timerReset();
-                car->setIsCarAlive(false);
-            }
-        } else {
-            car->timerReset();
+        if (!car->isCarAlive()) continue;
+
+        auto currentCameraPosition = _bestAliveCar->getCarBody()->getBody()->GetPosition();
+        if (currentPos.x > currentCameraPosition.x + 1 || !_bestAliveCar->isCarAlive()) {
+            printf("Current camera position: %f Current car position: %f\n", currentCameraPosition.x, currentPos.x);
+            _bestAliveCar = car;
         }
+        checkIfCarIsAlive(car);
+
     }
     if (std::all_of(_cars.begin(), _cars.end(), [](const PCar &car) { return !car->isCarAlive(); })) {
         setEndOfEpoch(true);
@@ -163,6 +179,10 @@ void World::carCreateWheels(const PCar &car) {
 
     _world->CreateJoint(leftWheelJoint.get());
     _world->CreateJoint(rightWheelJoint.get());
+}
+
+b2Vec2 World::getCameraPosition() {
+    return _bestAliveCar->getRightCircle()->getBody()->GetPosition();
 }
 
 World::~World() = default;

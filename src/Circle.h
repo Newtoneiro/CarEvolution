@@ -26,9 +26,14 @@ public:
 
     sf::Shape &getShape() override;
 
+    bool isAlive() const noexcept { return _isAlive; };
+
+    void setIsAlive(const bool val) noexcept { _isAlive = val; };
+
 private:
     float _radius;
     sf::CircleShape _shape;
+    bool _isAlive = true;
 };
 
 #endif // CAREVOLUTION_CIRCLE_H

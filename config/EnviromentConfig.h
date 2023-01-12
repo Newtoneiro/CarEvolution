@@ -18,7 +18,7 @@ public:
     static constexpr unsigned int WINDOW_WIDTH = 800;
     static constexpr unsigned int WINDOW_HEIGHT = 600;
 
-    static constexpr float MINIMAL_SPEED = 1;
+    static constexpr float MINIMAL_SPEED = 2;
 };
 
 #endif //CAREVOLUTION_ENVIROMENTCONFIG_H

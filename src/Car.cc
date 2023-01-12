@@ -61,6 +61,8 @@ bool Car::isCarAlive() {
 void Car::setIsCarAlive(bool alive) {
     isAlive = alive;
     getCarBody()->setIsAlive(alive);
+    getLeftCircle()->setIsAlive(alive);
+    getRightCircle()->setIsAlive(alive);
     if (!alive) {
         getCarBody()->getShape().setFillColor(sf::Color::Blue);
     } else {
