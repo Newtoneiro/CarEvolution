@@ -3,6 +3,7 @@
 
 #include "World.h"
 #include "../config/EvolutionAlgorithmConfig.h"
+#include "../config/CarConfig.h"
 
 /*
 Author: Bartosz Latosek
@@ -23,6 +24,10 @@ private:
     void generateNewEpoch(const PCar eliteCar) noexcept;
 
     void selection(std::vector<Genome> &newPopulationGenome, const std::vector<PCar> &oldPopulation) noexcept;
+
+    void crossover(std::vector<Genome> &newPopulationGenome) const noexcept;
+
+    void mutation(std::vector<Genome> &newPopulationGenome) const noexcept;
 
     std::shared_ptr<World> _world;
 };

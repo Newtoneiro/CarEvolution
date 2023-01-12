@@ -19,10 +19,12 @@ void CarBody::createBody() {
 }
 
 void CarBody::updateShape() {
-    b2Vec2 position = _body->GetPosition();
-    float angle = _body->GetAngle();
-    _shape.setPosition(sf::Vector2f(position.x, position.y));
-    _shape.setRotation((angle / (float) M_PI) * 180);
+    if (isAlive()){
+        b2Vec2 position = _body->GetPosition();
+        float angle = _body->GetAngle();
+        _shape.setPosition(sf::Vector2f(position.x, position.y));
+        _shape.setRotation((angle / (float) M_PI) * 180);
+    }
 }
 
 b2Vec2 CarBody::getLeftWheel() {

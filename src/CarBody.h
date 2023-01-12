@@ -26,10 +26,14 @@ public:
 
     std::vector<unsigned int> getGenome() const noexcept { return _genome; };
 
+    bool isAlive() const noexcept { return _isAlive; };
+
+    void setIsAlive(const bool val) noexcept { _isAlive = val; };
 private:
     std::vector<unsigned int> _genome;
     b2Vec2 _points[8];
     sf::ConvexShape _shape;
+    bool _isAlive = true;
 };
 
 
