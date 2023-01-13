@@ -16,7 +16,13 @@ void EvolutionAlgorithm::init() noexcept {
 b2Vec2 EvolutionAlgorithm::updateWorld() noexcept {
     worldStep();
     PCar eliteCar = _world->updateCars();
-    if (_world->isEndOfEpoch()) generateNewEpoch(eliteCar);
+    if (_world->isEndOfEpoch()) {
+        generateNewEpoch(eliteCar);
+        ++_curEpoch;
+        if (_curEpoch == EvolutionAlgorithmConfig::NO_EPOCHS){
+            _done = true;
+        }
+    }
     return _world->getCameraPosition();
 }
 

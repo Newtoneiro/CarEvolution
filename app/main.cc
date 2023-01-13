@@ -1,14 +1,8 @@
 #include "SFML/Graphics.hpp"
 #include "box2d/box2d.h"
-#include <vector>
 
-#include "../src/CarBody.h"
-#include "../src/Car.h"
-#include "../src/World.h"
 #include "../src/EvolutionAlgorithm.h"
 #include "../src/WindowHandle.h"
-
-#include "../config/EnviromentConfig.h"
 
 /*
 Author: Radoslaw Kostrzewski
@@ -22,7 +16,7 @@ int main(int argc, char *argv[]) {
 
     algorithm.init();
 
-    while (windowHandle.isOpen()) {
+    while (windowHandle.isOpen() && !algorithm.isDone()) {
         sf::Event event{};
         while (windowHandle.pollEvent(event)) {
             if (event.type == sf::Event::Closed)

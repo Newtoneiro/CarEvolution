@@ -88,7 +88,6 @@ PCar World::updateCars() {
 
         auto currentCameraPosition = _bestAliveCar->getCarBody()->getBody()->GetPosition();
         if (currentPos.x > currentCameraPosition.x + 1 || !_bestAliveCar->isCarAlive()) {
-            printf("Current camera position: %f Current car position: %f\n", currentCameraPosition.x, currentPos.x);
             _bestAliveCar = car;
         }
         checkIfCarIsAlive(car);

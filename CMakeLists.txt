@@ -6,6 +6,9 @@ get_filename_component(ROOT_DIR ${CMAKE_BINARY_DIR} DIRECTORY)
 file(MAKE_DIRECTORY ${ROOT_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)
 
+file(COPY ${ROOT_DIR}/src/arial.ttf
+     DESTINATION ${ROOT_DIR}/bin)
+
 add_subdirectory(src)
 add_subdirectory(config)
 

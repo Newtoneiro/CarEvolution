@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "box2d/box2d.h"
 #include <memory>
+#include <string>
 
 #include "../config/EnviromentConfig.h"
 #include "../src/Figure.h"
@@ -18,10 +19,15 @@ typedef std::shared_ptr<Figure> PFigure;
 class WindowHandle: public sf::RenderWindow {
 public:
     WindowHandle() noexcept;
-    
+
     void step(const b2Vec2 view_pos, const std::vector<PFigure> elements) noexcept;
-private:
+
+private: 
+    void displayText(int epoch, float distance);
+
     std::unique_ptr<sf::View> _view;
+    std::unique_ptr<sf::Text> _textTemplate;
+    std::unique_ptr<sf::Font> _fontTemplate;
 };
 
 
