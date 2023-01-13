@@ -1,3 +1,5 @@
+#include <iostream>
+#include <fstream>
 #include "SFML/Graphics.hpp"
 #include "box2d/box2d.h"
 
@@ -10,7 +12,6 @@ Purpose: This is a main file combining the logic and other aspects
          serving as presentation of app's purpose
 */
 int main(int argc, char *argv[]) {
-    
     EvolutionAlgorithm algorithm;
     WindowHandle windowHandle;
 
