@@ -2,6 +2,7 @@
 #define CAREVOLUTION_CARBODY_H
 
 #include "../config/FigureCategories.h"
+#include "../config/EnvironmentConfig.h"
 
 #include "Figure.h"
 

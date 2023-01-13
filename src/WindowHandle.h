@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 
-#include "../config/EnviromentConfig.h"
+#include "../config/EnvironmentConfig.h"
 #include "../src/Figure.h"
 
 /*
@@ -16,13 +16,13 @@ Cel: Plik naglowkowy WindowHandle - dekoratora do kontrolowania wyswietlania
 */
 typedef std::shared_ptr<Figure> PFigure;
 
-class WindowHandle: public sf::RenderWindow {
+class WindowHandle : public sf::RenderWindow {
 public:
     WindowHandle() noexcept;
 
     void step(const b2Vec2 view_pos, const std::vector<PFigure> elements, const unsigned int epoch) noexcept;
 
-private: 
+private:
     void displayText(int epoch, float distance);
 
     std::unique_ptr<sf::View> _view;

@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "../config/GroundConfig.h"
-#include "../config/EnviromentConfig.h"
+#include "../config/EnvironmentConfig.h"
 
 #include <box2d/b2_world.h>
 #include <box2d/b2_math.h>
@@ -20,7 +20,7 @@ Purpose: This is the header file of world class responsible for
          providing a space for objects to interact with eachother
 */
 
-typedef std::shared_ptr<b2World> PWorld;
+typedef std::shared_ptr<b2World> Pb2World;
 typedef std::shared_ptr<Figure> PFigure;
 typedef std::shared_ptr<Car> PCar;
 typedef std::shared_ptr<b2RevoluteJointDef> PJoint;
@@ -65,7 +65,7 @@ private:
 
     static void checkIfCarIsAlive(const PCar &car);
 
-    PWorld _world;
+    Pb2World _world;
     std::vector<PFigure> _elements;
     std::vector<PFigure> _ground;
     std::vector<PCar> _cars;

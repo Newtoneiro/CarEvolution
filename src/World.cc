@@ -11,7 +11,7 @@ Purpose: This is the implemenation of World class responsible for
 
 World::World() {
     srand(time(0));
-    _world = std::make_shared<b2World>(b2Vec2(0.0f, EnviromentConfig::GRAVITY));
+    _world = std::make_shared<b2World>(b2Vec2(0.0f, EnvironmentConfig::GRAVITY));
 }
 
 void World::createBody(const PFigure &fig, bool isGround = false) {
@@ -60,8 +60,8 @@ void World::checkIfCarIsAlive(const PCar &car) {
     car->timerStep();
     auto speed = car->getCarBody()->getBody()->GetLinearVelocity();
     auto timer = car->getTime();
-    if (abs(speed.x) < EnviromentConfig::MINIMAL_SPEED && abs(speed.y) < EnviromentConfig::MINIMAL_SPEED) {
-        if (timer > EnviromentConfig::MAX_TIME_ALIVE) {
+    if (abs(speed.x) < EnvironmentConfig::MINIMAL_SPEED && abs(speed.y) < EnvironmentConfig::MINIMAL_SPEED) {
+        if (timer > EnvironmentConfig::MAX_TIME_ALIVE) {
             car->timerReset();
             car->setIsCarAlive(false);
         }
@@ -110,9 +110,9 @@ std::vector<PFigure> World::getElements() {
 }
 
 void World::step() {
-    _world->Step(1.0f / EnviromentConfig::FPS,
-                 EnviromentConfig::VELOCITY_ITERATIONS,
-                 EnviromentConfig::POSITION_ITERATIONS);
+    _world->Step(1.0f / EnvironmentConfig::FPS,
+                 EnvironmentConfig::VELOCITY_ITERATIONS,
+                 EnvironmentConfig::POSITION_ITERATIONS);
 }
 
 void World::generateFloor() {

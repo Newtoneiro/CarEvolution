@@ -21,10 +21,10 @@ void GroundElement::createBody() {
     shape.SetAsBox(GroundConfig::GROUND_ELEMENT_WIDTH / 2, GroundConfig::GROUND_ELEMENT_HEIGHT / 2);
     b2FixtureDef fixture;
     fixture.shape = &shape;
-    fixture.density = 1.0f;
-    fixture.friction = 0.7f;
-    fixture.restitution = 0.5f;
-    fixture.filter.categoryBits = FigureCategories(ground);
+    fixture.density = EnvironmentConfig::FIGURE_DENSITY;
+    fixture.friction = EnvironmentConfig::FIGURE_FRICTION;
+    fixture.restitution = EnvironmentConfig::FIGURE_RESTITUTION;
+    fixture.filter.categoryBits = FigureCategories(groundCategory);
     _body->CreateFixture(&fixture);
 }
 

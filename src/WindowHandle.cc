@@ -7,13 +7,13 @@ Cel: Plik z implementacja WindowHandle - dekoratora do kontrolowania wyswietlani
      swiata.
 */
 WindowHandle::WindowHandle() noexcept
-        : sf::RenderWindow(sf::VideoMode({EnviromentConfig::WINDOW_WIDTH, EnviromentConfig::WINDOW_HEIGHT}),
+        : sf::RenderWindow(sf::VideoMode({EnvironmentConfig::WINDOW_WIDTH, EnvironmentConfig::WINDOW_HEIGHT}),
                            "SFML window") {
 
-    sf::View view(sf::Vector2f(EnviromentConfig::WINDOW_WIDTH / 2,
-                               EnviromentConfig::WINDOW_HEIGHT / 2),
-                  sf::Vector2f(EnviromentConfig::WINDOW_WIDTH,
-                               EnviromentConfig::WINDOW_HEIGHT));
+    sf::View view(sf::Vector2f(EnvironmentConfig::WINDOW_WIDTH / 2,
+                               EnvironmentConfig::WINDOW_HEIGHT / 2),
+                  sf::Vector2f(EnvironmentConfig::WINDOW_WIDTH,
+                               EnvironmentConfig::WINDOW_HEIGHT));
 
     _view = std::make_unique<sf::View>(view);
     setView(*_view);

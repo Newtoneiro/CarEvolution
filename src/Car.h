@@ -6,7 +6,7 @@
 #include "Circle.h"
 #include "CarBody.h"
 
-#include "../config/EnviromentConfig.h"
+#include "../config/EnvironmentConfig.h"
 
 /*
 Autor: Bartosz Latosek
@@ -45,12 +45,13 @@ public:
     void setIsCarAlive(bool alive) noexcept;
 
     int getTime() const noexcept { return _timer; };
-    
+
     bool isCarAlive() const noexcept { return isAlive; };
 
     Genome getGenome() const noexcept;
 
     std::vector<float> getWheelsGenome() const noexcept;
+
 private:
     PCarBody _carBody;
     PCircle _leftCircle;

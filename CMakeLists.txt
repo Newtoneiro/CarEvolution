@@ -9,8 +9,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)
 add_subdirectory(src)
 add_subdirectory(config)
 
+
 add_executable(CarEvolution app/main.cc)
 target_link_libraries(CarEvolution Source Config box2d sfml-system sfml-graphics sfml-audio sfml-window)
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 enable_testing()
 

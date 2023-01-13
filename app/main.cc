@@ -11,7 +11,7 @@ Author: Radoslaw Kostrzewski
 Purpose: This is a main file combining the logic and other aspects
          serving as presentation of app's purpose
 */
-int main(int argc, char *argv[]) {
+int main() {
     EvolutionAlgorithm algorithm;
     WindowHandle windowHandle;
 

@@ -25,11 +25,11 @@ void Circle::createBody() {
     shape.m_radius = _radius;
     b2FixtureDef fixture;
     fixture.shape = &shape;
-    fixture.density = 1.0f;
-    fixture.friction = 0.7f;
-    fixture.restitution = 0.5f;
-    fixture.filter.categoryBits = FigureCategories(circle);
-    fixture.filter.maskBits = FigureCategories(ground);
+    fixture.density = EnvironmentConfig::FIGURE_DENSITY;
+    fixture.friction = EnvironmentConfig::FIGURE_FRICTION;
+    fixture.restitution = EnvironmentConfig::FIGURE_RESTITUTION;
+    fixture.filter.categoryBits = FigureCategories(circleCategory);
+    fixture.filter.maskBits = FigureCategories(groundCategory);
     _body->CreateFixture(&fixture);
 }
 

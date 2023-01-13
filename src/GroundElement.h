@@ -3,6 +3,7 @@
 
 #include "../config/GroundConfig.h"
 #include "../config/FigureCategories.h"
+#include "../config/EnvironmentConfig.h"
 
 
 #include "SFML/Graphics.hpp"

@@ -10,16 +10,16 @@ void CarBody::createBody() {
     shape.Set(_points, 8);
     b2FixtureDef fixture;
     fixture.shape = &shape;
-    fixture.density = 1.0f;
-    fixture.friction = 0.3f;
-    fixture.restitution = 0.5f;
-    fixture.filter.categoryBits = FigureCategories(carBody);
-    fixture.filter.maskBits = FigureCategories(ground);
+    fixture.density = EnvironmentConfig::FIGURE_DENSITY;
+    fixture.friction = EnvironmentConfig::FIGURE_FRICTION;
+    fixture.restitution = EnvironmentConfig::FIGURE_RESTITUTION;
+    fixture.filter.categoryBits = FigureCategories(carBodyCategory);
+    fixture.filter.maskBits = FigureCategories(groundCategory);
     _body->CreateFixture(&fixture);
 }
 
 void CarBody::updateShape() {
-    if (isAlive()){
+    if (isAlive()) {
         b2Vec2 position = _body->GetPosition();
         float angle = _body->GetAngle();
         _shape.setPosition(sf::Vector2f(position.x, position.y));
