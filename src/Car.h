@@ -24,11 +24,11 @@ public:
     Car(const std::vector<unsigned int> &bodyRadiuses,
         const std::vector<float> &wheelRadiuses);
 
-    ~Car();
+    ~Car() = default;
 
-    void createBody() override;
+    void createBody() noexcept override;
 
-    void updateShape() override;
+    void updateShape() noexcept override;
 
     PCarBody getCarBody() const noexcept;
 
@@ -36,18 +36,17 @@ public:
 
     PCircle getRightCircle() const noexcept;
 
-    sf::Shape &getShape() override;
+    sf::Shape &getShape() noexcept override;
 
-    int getTime() const;
+    void timerStep() noexcept { ++_timer; };
 
-    void timerStep();
+    void timerReset() noexcept { _timer = 0; };
 
-    void timerReset();
+    void setIsCarAlive(bool alive) noexcept;
 
-    bool isCarAlive();
-
-    void setIsCarAlive(bool alive);
-
+    int getTime() const noexcept { return _timer; };
+    
+    bool isCarAlive() const noexcept { return isAlive; };
 
     Genome getGenome() const noexcept;
 

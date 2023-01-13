@@ -5,10 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 get_filename_component(ROOT_DIR ${CMAKE_BINARY_DIR} DIRECTORY)
 file(MAKE_DIRECTORY ${ROOT_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)
-set(RESOURCE)
-
-file(COPY ${ROOT_DIR}/resources/arial.ttf
-        DESTINATION ${ROOT_DIR}/bin/resources)
 
 add_subdirectory(src)
 add_subdirectory(config)
