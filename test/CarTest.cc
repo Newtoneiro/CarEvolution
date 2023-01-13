@@ -28,9 +28,9 @@ TEST(CarTest, CreateBodyTest) {
     EXPECT_TRUE(car->getLeftCircle()->getBody() == nullptr);
     EXPECT_TRUE(car->getRightCircle()->getBody() == nullptr);
     
-    car->createBody();
+    world.createCar(car);
 
-    // EXPECT_TRUE(car->getCarBody()->getBody() != nullptr);
-    // EXPECT_TRUE(car->getLeftCircle()->getBody() != nullptr);
-    // EXPECT_TRUE(car->getRightCircle()->getBody() != nullptr);
+    EXPECT_TRUE(car->getCarBody()->getBody() != nullptr);
+    EXPECT_TRUE(car->getLeftCircle()->getBody() != nullptr);
+    EXPECT_TRUE(car->getRightCircle()->getBody() != nullptr);
 }
