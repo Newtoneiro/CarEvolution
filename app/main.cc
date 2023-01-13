@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
         }
 
         b2Vec2 view_pos = algorithm.updateWorld();
-        windowHandle.step(view_pos, algorithm.getWorldElements());
+        windowHandle.step(view_pos, algorithm.getWorldElements(), algorithm.epoch());
     }
     return EXIT_SUCCESS;
 }

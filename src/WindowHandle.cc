@@ -19,14 +19,14 @@ WindowHandle::WindowHandle() noexcept
     setView(*_view);
 }
 
-void WindowHandle::step(const b2Vec2 view_pos, const std::vector<PFigure> elements) noexcept {
+void WindowHandle::step(const b2Vec2 view_pos, const std::vector<PFigure> elements, const unsigned int epoch) noexcept {
     _view->setCenter(view_pos.x + 100, view_pos.y);
     setView(*_view);
     clear();
     for (auto shape: elements) {
         draw(shape->getShape());
     }
-    displayText(1, 1);
+    displayText(epoch, view_pos.x);
     display();
 }
 

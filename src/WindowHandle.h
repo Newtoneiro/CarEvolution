@@ -20,7 +20,7 @@ class WindowHandle: public sf::RenderWindow {
 public:
     WindowHandle() noexcept;
 
-    void step(const b2Vec2 view_pos, const std::vector<PFigure> elements) noexcept;
+    void step(const b2Vec2 view_pos, const std::vector<PFigure> elements, const unsigned int epoch) noexcept;
 
 private: 
     void displayText(int epoch, float distance);
