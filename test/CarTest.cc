@@ -8,7 +8,6 @@
 Autor: Bartosz Latosek
 Cel: Implementacja testów do klasy Car
 */
-
 typedef std::shared_ptr<World> PWorld;
 
 TEST(CarTest, ContructorTest) {

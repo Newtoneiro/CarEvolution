@@ -7,45 +7,45 @@ Purpose: This is a implementation file for representation of Evolution Algorithm
 */
 
 void EvolutionAlgorithm::init() noexcept {
-    World world;
-    _world = std::make_shared<World>(world);
-    _world->createCars(EvolutionAlgorithmConfig::INITIAL_POPULATION_SIZE);
-    _world->generateFloor();
+    World newWorld;
+    world = std::make_shared<World>(newWorld);
+    world->createCars(EvolutionAlgorithmConfig::INITIAL_POPULATION_SIZE);
+    world->generateFloor();
 }
 
 b2Vec2 EvolutionAlgorithm::updateWorld() noexcept {
     worldStep();
-    PCar eliteCar = _world->updateCars();
-    if (_world->isEndOfEpoch()) {
+    PCar eliteCar = world->updateCars();
+    if (world->isEndOfEpoch()) {
         generateNewEpoch(eliteCar);
-        ++_curEpoch;
-        if (_curEpoch == EvolutionAlgorithmConfig::NO_EPOCHS) {
-            _done = true;
+        ++curEpoch;
+        if (curEpoch == EvolutionAlgorithmConfig::NO_EPOCHS) {
+            done = true;
         }
     }
-    return _world->getCameraPosition();
+    return world->getCameraPosition();
 }
 
 std::vector<PFigure> EvolutionAlgorithm::getWorldElements() noexcept {
-    return _world->getElements();
+    return world->getElements();
 }
 
 void EvolutionAlgorithm::worldStep() noexcept {
-    _world->step();
-    _world->updateElements();
+    world->step();
+    world->updateElements();
 }
 
 void EvolutionAlgorithm::generateNewEpoch(const PCar eliteCar) noexcept {
     std::vector<Genome> newPopulationGenome;
 
-    selection(newPopulationGenome, _world->getCurrentPopulation());
+    selection(newPopulationGenome, world->getCurrentPopulation());
     crossover(newPopulationGenome);
     mutation(newPopulationGenome);
 
     newPopulationGenome.push_back(eliteCar->getGenome());
 
-    _world->respawnCars(newPopulationGenome);
-    _world->setEndOfEpoch(false);
+    world->respawnCars(newPopulationGenome);
+    world->setEndOfEpoch(false);
 }
 
 void EvolutionAlgorithm::selection(std::vector<Genome> &newPopulationGenome,

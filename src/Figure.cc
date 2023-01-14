@@ -9,10 +9,10 @@ Figure::Figure() = default;
 
 Figure::~Figure() = default;
 
-b2Body *Figure::getBody() { return _body; }
+b2Body *Figure::getBody() { return body; }
 
-b2Vec2 Figure::getPosition() { return _body->GetPosition(); }
+b2Vec2 Figure::getPosition() { return body->GetPosition(); }
 
-void Figure::setBody(b2Body *newBody) { _body = newBody; }
+void Figure::setBody(b2Body *newBody) { body = newBody; }
 
-b2BodyDef Figure::getBodyDef() { return _bodyDef; }
+b2BodyDef Figure::getBodyDef() { return bodyDef; }

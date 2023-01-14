@@ -7,13 +7,13 @@ Cel: Plik implementujacy podloge - staly element
      oddzialujacy z nimi
 */
 GroundElement::GroundElement(float posX, float posY, float rotation) : Figure() {
-    _bodyDef.type = b2_staticBody;
-    _bodyDef.position.Set(posX, posY);
-    _bodyDef.angle = rotation;
-    _shape.setOrigin(GroundConfig::GROUND_ELEMENT_WIDTH / 2, GroundConfig::GROUND_ELEMENT_HEIGHT / 2);
-    _shape.setRotation((rotation / (float) M_PI) * 180);
-    _shape.setFillColor(sf::Color::Cyan);
-    _shape.setSize(sf::Vector2f(GroundConfig::GROUND_ELEMENT_WIDTH, GroundConfig::GROUND_ELEMENT_HEIGHT));
+    bodyDef.type = b2_staticBody;
+    bodyDef.position.Set(posX, posY);
+    bodyDef.angle = rotation;
+    shape.setOrigin(GroundConfig::GROUND_ELEMENT_WIDTH / 2, GroundConfig::GROUND_ELEMENT_HEIGHT / 2);
+    shape.setRotation((rotation / (float) M_PI) * 180);
+    shape.setFillColor(sf::Color::Cyan);
+    shape.setSize(sf::Vector2f(GroundConfig::GROUND_ELEMENT_WIDTH, GroundConfig::GROUND_ELEMENT_HEIGHT));
 }
 
 void GroundElement::createBody() {
@@ -25,13 +25,13 @@ void GroundElement::createBody() {
     fixture.friction = EnvironmentConfig::FIGURE_FRICTION;
     fixture.restitution = EnvironmentConfig::FIGURE_RESTITUTION;
     fixture.filter.categoryBits = FigureCategories(groundCategory);
-    _body->CreateFixture(&fixture);
+    body->CreateFixture(&fixture);
 }
 
 void GroundElement::updateShape() {
-    b2Vec2 position = _body->GetPosition();
-    _shape.setPosition(sf::Vector2f(position.x, position.y));
+    b2Vec2 position = body->GetPosition();
+    shape.setPosition(sf::Vector2f(position.x, position.y));
 }
 
-sf::Shape &GroundElement::getShape() { return _shape; }
+sf::Shape &GroundElement::getShape() { return shape; }
 

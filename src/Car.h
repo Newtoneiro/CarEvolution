@@ -2,6 +2,7 @@
 #define CAREVOLUTION_CAR_H
 
 #include <memory>
+
 #include "Figure.h"
 #include "Circle.h"
 #include "CarBody.h"
@@ -34,27 +35,27 @@ public:
 
     PCircle getRightCircle() const noexcept;
 
-    void timerStep() noexcept { ++_timer; };
+    void timerStep() noexcept { ++timer; };
 
-    void timerReset() noexcept { _timer = 0; };
+    void timerReset() noexcept { timer = 0; };
 
     void setIsCarAlive(bool alive) noexcept;
 
-    int getTime() const noexcept { return _timer; };
+    int getTime() const noexcept { return timer; };
 
-    bool isCarAlive() const noexcept { return _isAlive; };
+    bool isCarAlive() const noexcept { return isAlive; };
 
     Genome getGenome() const noexcept;
 
     std::vector<float> getWheelsGenome() const noexcept;
 
 private:
-    PCarBody _carBody;
-    PCircle _leftCircle;
-    PCircle _rightCircle;
+    PCarBody carBody;
+    PCircle leftCircle;
+    PCircle rightCircle;
 
-    int _timer = 0;
-    bool _isAlive = true;
+    int timer = 0;
+    bool isAlive = true;
 };
 
 

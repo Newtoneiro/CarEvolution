@@ -10,18 +10,18 @@ WindowHandle::WindowHandle() noexcept
         : sf::RenderWindow(sf::VideoMode({EnvironmentConfig::WINDOW_WIDTH, EnvironmentConfig::WINDOW_HEIGHT}),
                            "SFML window") {
 
-    sf::View view(sf::Vector2f(EnvironmentConfig::WINDOW_WIDTH / 2,
+    sf::View newView(sf::Vector2f(EnvironmentConfig::WINDOW_WIDTH / 2,
                                EnvironmentConfig::WINDOW_HEIGHT / 2),
                   sf::Vector2f(EnvironmentConfig::WINDOW_WIDTH,
                                EnvironmentConfig::WINDOW_HEIGHT));
 
-    _view = std::make_unique<sf::View>(view);
-    setView(*_view);
+    view = std::make_unique<sf::View>(newView);
+    setView(*view);
 }
 
 void WindowHandle::step(const b2Vec2 view_pos, const std::vector<PFigure> elements, const unsigned int epoch) noexcept {
-    _view->setCenter(view_pos.x + 100, view_pos.y);
-    setView(*_view);
+    view->setCenter(view_pos.x + 100, view_pos.y);
+    setView(*view);
     clear();
     for (auto shape: elements) {
         draw(shape->getShape());

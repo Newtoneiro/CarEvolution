@@ -55,8 +55,8 @@ TEST(CircleTest, isAliveTest) {
     TestCircle circle = std::make_unique<Circle>(8);
     TestWorld world = std::make_unique<World>();
     world->createBody(circle, false);
-    EXPECT_TRUE(circle->isAlive());
+    EXPECT_TRUE(circle->isCircleAlive());
     circle->setIsAlive(false);
-    EXPECT_TRUE(!circle->isAlive());
+    EXPECT_TRUE(!circle->isCircleAlive());
 }
 

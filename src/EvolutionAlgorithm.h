@@ -18,9 +18,9 @@ public:
 
     std::vector<PFigure> getWorldElements() noexcept;
 
-    bool isDone() const noexcept { return _done; };
+    bool isDone() const noexcept { return done; };
     
-    unsigned int epoch() const noexcept { return _curEpoch; };
+    unsigned int epoch() const noexcept { return curEpoch; };
 
 private:
     void worldStep() noexcept;
@@ -33,9 +33,9 @@ private:
 
     void mutation(std::vector<Genome> &newPopulationGenome) const noexcept;
 
-    std::shared_ptr<World> _world;
-    unsigned int _curEpoch = 0;
-    bool _done = false;
+    std::shared_ptr<World> world;
+    unsigned int curEpoch = 0;
+    bool done = false;
 };
 
 #endif // CAREVOLUTION_EVOLUTIONALGORITHM_H

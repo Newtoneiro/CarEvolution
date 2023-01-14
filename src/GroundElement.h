@@ -29,7 +29,7 @@ public:
 
 private:
 
-    sf::RectangleShape _shape;
+    sf::RectangleShape shape;
 };
 
 #endif // CAREVOLUTION_GROUNDELEMENT_HPP

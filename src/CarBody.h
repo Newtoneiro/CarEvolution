@@ -25,17 +25,17 @@ public:
 
     sf::Shape &getShape() override;
 
-    std::vector<unsigned int> getGenome() const noexcept { return _genome; };
+    std::vector<unsigned int> getGenome() const noexcept { return genome; };
 
-    bool isAlive() const noexcept { return _isAlive; };
+    bool isBodyAlive() const noexcept { return isAlive; };
 
-    void setIsAlive(const bool val) noexcept { _isAlive = val; };
+    void setIsAlive(const bool val) noexcept { isAlive = val; };
 private:
-    std::vector<unsigned int> _genome;
-    b2Vec2 _points[8];
-    sf::ConvexShape _shape;
-    bool _isAlive = true;
+    std::vector<unsigned int> genome;
+    b2Vec2 points[8];
+    sf::ConvexShape shape;
+    
+    bool isAlive = true;
 };
-
 
 #endif //CAREVOLUTION_CARBODY_H

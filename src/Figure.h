@@ -32,8 +32,8 @@ public:
     virtual sf::Shape &getShape() = 0;
 
 protected:
-    b2BodyDef _bodyDef;
-    b2Body *_body;
+    b2BodyDef bodyDef;
+    b2Body *body;
 };
 
 #endif // CAREVOLUTION_FIGURE_H

@@ -10,17 +10,17 @@ Purpose: This is the implemenation of World class responsible for
 */
 
 World::World() {
-    _world = std::make_shared<b2World>(b2Vec2(0.0f, EnvironmentConfig::GRAVITY));
+    world = std::make_shared<b2World>(b2Vec2(0.0f, EnvironmentConfig::GRAVITY));
 }
 
 void World::createBody(const PFigure &fig, bool isGround = false) {
     b2BodyDef bodyDef = fig->getBodyDef();
-    b2Body *newBody = _world->CreateBody(&bodyDef);
+    b2Body *newBody = world->CreateBody(&bodyDef);
     fig->setBody(newBody);
     fig->createBody();
-    _elements.push_back(fig);
+    elements.push_back(fig);
     if (isGround) {
-        _ground.push_back(fig);
+        ground.push_back(fig);
     }
 }
 
@@ -29,13 +29,13 @@ void World::createCar(const PCar &car) {
     createBody(car->getLeftCircle());
     createBody(car->getRightCircle());
     carCreateWheels(car);
-    _cars.push_back(car);
+    cars.push_back(car);
 }
 
 void World::destroyCar(const PCar &car) {
-    _world->DestroyBody(car->getCarBody()->getBody());
-    _world->DestroyBody(car->getLeftCircle()->getBody());
-    _world->DestroyBody(car->getRightCircle()->getBody());
+    world->DestroyBody(car->getCarBody()->getBody());
+    world->DestroyBody(car->getLeftCircle()->getBody());
+    world->DestroyBody(car->getRightCircle()->getBody());
 }
 
 
@@ -74,9 +74,9 @@ PCar World::updateCars() {
     b2Vec2 firstCarPos = b2Vec2(-100, 0);
     PCar eliteCar;
 
-    for (PCar &car: _cars) {
-        if (_bestAliveCar == nullptr) {
-            _bestAliveCar = car;
+    for (PCar &car: cars) {
+        if (bestAliveCar == nullptr) {
+            bestAliveCar = car;
         }
         auto currentPos = car->getCarBody()->getBody()->GetPosition();
         if (currentPos.x > firstCarPos.x) {
@@ -85,31 +85,31 @@ PCar World::updateCars() {
         }
         if (!car->isCarAlive()) continue;
 
-        auto currentCameraPosition = _bestAliveCar->getCarBody()->getBody()->GetPosition();
-        if (currentPos.x > currentCameraPosition.x + 1 || !_bestAliveCar->isCarAlive()) {
-            _bestAliveCar = car;
+        auto currentCameraPosition = bestAliveCar->getCarBody()->getBody()->GetPosition();
+        if (currentPos.x > currentCameraPosition.x + 1 || !bestAliveCar->isCarAlive()) {
+            bestAliveCar = car;
         }
         checkIfCarIsAlive(car);
 
     }
-    if (std::all_of(_cars.begin(), _cars.end(), [](const PCar &car) { return !car->isCarAlive(); })) {
+    if (std::all_of(cars.begin(), cars.end(), [](const PCar &car) { return !car->isCarAlive(); })) {
         setEndOfEpoch(true);
     }
     return eliteCar;
 }
 
 void World::updateElements() {
-    for (PFigure &element: _elements) {
+    for (PFigure &element: elements) {
         element->updateShape();
     }
 }
 
 std::vector<PFigure> World::getElements() {
-    return _elements;
+    return elements;
 }
 
 void World::step() {
-    _world->Step(1.0f / EnvironmentConfig::FPS,
+    world->Step(1.0f / EnvironmentConfig::FPS,
                  EnvironmentConfig::VELOCITY_ITERATIONS,
                  EnvironmentConfig::POSITION_ITERATIONS);
 }
@@ -141,13 +141,13 @@ void World::generateFloor() {
 }
 
 void World::respawnCars(const std::vector<Genome> &newPopulationGenome) noexcept {
-    for (const auto &car: _cars) {
+    for (const auto &car: cars) {
         destroyCar(car);
     }
-    _cars.clear();
-    _joints.clear();
-    _elements.clear();
-    std::copy(_ground.begin(), _ground.end(), std::back_inserter(_elements));
+    cars.clear();
+    joints.clear();
+    elements.clear();
+    std::copy(ground.begin(), ground.end(), std::back_inserter(elements));
     for (const Genome &genome: newPopulationGenome) {
         createCar(std::make_shared<Car>(genome.first, genome.second));
     }
@@ -157,8 +157,8 @@ void World::carCreateWheels(const PCar &car) {
     PJoint leftWheelJoint = std::make_shared<b2RevoluteJointDef>();
     PJoint rightWheelJoint = std::make_shared<b2RevoluteJointDef>();
 
-    _joints.push_back(leftWheelJoint);
-    _joints.push_back(rightWheelJoint);
+    joints.push_back(leftWheelJoint);
+    joints.push_back(rightWheelJoint);
 
     leftWheelJoint->bodyA = car->getCarBody()->getBody();
     rightWheelJoint->bodyA = car->getCarBody()->getBody();
@@ -175,12 +175,12 @@ void World::carCreateWheels(const PCar &car) {
     leftWheelJoint->Initialize(leftWheelJoint->bodyA, leftWheelJoint->bodyB, leftWheelJoint->localAnchorA);
     rightWheelJoint->Initialize(rightWheelJoint->bodyA, rightWheelJoint->bodyB, rightWheelJoint->localAnchorA);
 
-    _world->CreateJoint(leftWheelJoint.get());
-    _world->CreateJoint(rightWheelJoint.get());
+    world->CreateJoint(leftWheelJoint.get());
+    world->CreateJoint(rightWheelJoint.get());
 }
 
 b2Vec2 World::getCameraPosition() {
-    return _bestAliveCar->getRightCircle()->getBody()->GetPosition();
+    return bestAliveCar->getRightCircle()->getBody()->GetPosition();
 }
 
 World::~World() = default;

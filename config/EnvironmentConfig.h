@@ -12,7 +12,7 @@ public:
     static const int VELOCITY_ITERATIONS = 1;
     static const int POSITION_ITERATIONS = 1;
     static const int GRAVITY = 2;
-    static const int SEED = 4901890;
+    static const int SEED = 0;
 
     static const int MAX_TIME_ALIVE = 1000;
 

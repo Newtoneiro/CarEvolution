@@ -7,33 +7,33 @@ Cel: Plik implementujący samochod - obiektu reprezentującego
 */
 Car::Car(const std::vector<unsigned int> &bodyRadiuses,
          const std::vector<float> &wheelRadiuses) {
-    _carBody = std::make_shared<CarBody>(bodyRadiuses);
-    _leftCircle = std::make_shared<Circle>(wheelRadiuses[0], _carBody->getLeftWheel().x, _carBody->getLeftWheel().y);
-    _rightCircle = std::make_shared<Circle>(wheelRadiuses[1], _carBody->getRightWheel().x, _carBody->getRightWheel().y);
+    carBody = std::make_shared<CarBody>(bodyRadiuses);
+    leftCircle = std::make_shared<Circle>(wheelRadiuses[0], carBody->getLeftWheel().x, carBody->getLeftWheel().y);
+    rightCircle = std::make_shared<Circle>(wheelRadiuses[1], carBody->getRightWheel().x, carBody->getRightWheel().y);
 }
 
 void Car::updateShape() noexcept {
-    if (_isAlive) {
-        _carBody->updateShape();
-        _leftCircle->updateShape();
-        _rightCircle->updateShape();
+    if (isAlive) {
+        carBody->updateShape();
+        leftCircle->updateShape();
+        rightCircle->updateShape();
     }
 }
 
 PCarBody Car::getCarBody() const noexcept {
-    return _carBody;
+    return carBody;
 }
 
 PCircle Car::getLeftCircle() const noexcept {
-    return _leftCircle;
+    return leftCircle;
 }
 
 PCircle Car::getRightCircle() const noexcept {
-    return _rightCircle;
+    return rightCircle;
 }
 
 void Car::setIsCarAlive(bool alive) noexcept {
-    _isAlive = alive;
+    isAlive = alive;
     getCarBody()->setIsAlive(alive);
     getLeftCircle()->setIsAlive(alive);
     getRightCircle()->setIsAlive(alive);

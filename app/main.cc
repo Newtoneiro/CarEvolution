@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>
+
 #include "SFML/Graphics.hpp"
 #include "box2d/box2d.h"
 
@@ -12,8 +12,13 @@ Purpose: This is a main file combining the logic and other aspects
          serving as presentation of app's purpose
 */
 int main() {
+    if (EnvironmentConfig::SEED == 0){
+        srand(time(0));   
+    }
+    else{
+        srand(EnvironmentConfig::SEED);
+    }
 
-    srand(EnvironmentConfig::SEED);
     EvolutionAlgorithm algorithm;
     WindowHandle windowHandle;
 
@@ -26,8 +31,8 @@ int main() {
                 windowHandle.close();
         }
 
-        b2Vec2 view_pos = algorithm.updateWorld();
-        windowHandle.step(view_pos, algorithm.getWorldElements(), algorithm.epoch());
+        b2Vec2 viewPos = algorithm.updateWorld();
+        windowHandle.step(viewPos, algorithm.getWorldElements(), algorithm.epoch());
     }
     return EXIT_SUCCESS;
 }
