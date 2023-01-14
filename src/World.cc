@@ -10,7 +10,6 @@ Purpose: This is the implemenation of World class responsible for
 */
 
 World::World() {
-    srand(time(0));
     _world = std::make_shared<b2World>(b2Vec2(0.0f, EnvironmentConfig::GRAVITY));
 }
 
@@ -149,7 +148,7 @@ void World::respawnCars(const std::vector<Genome> &newPopulationGenome) noexcept
     _joints.clear();
     _elements.clear();
     std::copy(_ground.begin(), _ground.end(), std::back_inserter(_elements));
-    for (const Genome genome: newPopulationGenome) {
+    for (const Genome &genome: newPopulationGenome) {
         createCar(std::make_shared<Car>(genome.first, genome.second));
     }
 }

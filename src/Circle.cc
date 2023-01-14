@@ -5,7 +5,7 @@ Author: Bartosz Latosek
 Purpose: This is a implementation of specialisation of figure class representing a circle
 */
 Circle::Circle(float radius, float posX = 0.0f, float posY = 0.0f)
-        : _radius(radius), Figure() {
+        : Figure(), _radius(radius) {
     _bodyDef.type = b2_dynamicBody;
     _bodyDef.position.Set(posX, posY);
     _shape.setOrigin(radius, radius);
@@ -13,7 +13,7 @@ Circle::Circle(float radius, float posX = 0.0f, float posY = 0.0f)
     _shape.setFillColor(sf::Color::Magenta);
 }
 
-Circle::Circle(float radius) : _radius(radius), Figure() {
+Circle::Circle(float radius) : Figure(), _radius(radius) {
     _shape.setOrigin(radius, radius);
     _shape.setRadius(radius);
 }

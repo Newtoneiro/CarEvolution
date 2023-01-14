@@ -19,7 +19,7 @@ b2Vec2 EvolutionAlgorithm::updateWorld() noexcept {
     if (_world->isEndOfEpoch()) {
         generateNewEpoch(eliteCar);
         ++_curEpoch;
-        if (_curEpoch == EvolutionAlgorithmConfig::NO_EPOCHS){
+        if (_curEpoch == EvolutionAlgorithmConfig::NO_EPOCHS) {
             _done = true;
         }
     }
@@ -96,7 +96,7 @@ void EvolutionAlgorithm::mutation(std::vector<Genome> &newPopulationGenome) cons
         std::vector<unsigned int> newBodyRadiuses;
         for (int i = 0; i < 8; ++i) {
             float mutationProb = (float) rand() / (float) RAND_MAX;
-            unsigned int oldBodyRadius = subject.first[i];
+            int oldBodyRadius = subject.first[i];
             if (mutationProb < EvolutionAlgorithmConfig::MUTATION_PROB) {
                 oldBodyRadius += (rand() %
                                   (2 * EvolutionAlgorithmConfig::MAX_BODY_RADIUS_MUTATION + 1) -
@@ -110,7 +110,7 @@ void EvolutionAlgorithm::mutation(std::vector<Genome> &newPopulationGenome) cons
         std::vector<float> newWheelRadiuses;
         for (int i = 0; i < 2; ++i) {
             float mutationProb = (float) rand() / (float) RAND_MAX;
-            unsigned int oldWheelRadius = subject.second[i];
+            int oldWheelRadius = subject.second[i];
             if (mutationProb < EvolutionAlgorithmConfig::MUTATION_PROB) {
                 oldWheelRadius += (rand() %
                                    (2 * EvolutionAlgorithmConfig::MAX_WHEEL_RADIUS_MUTATION + 1) -

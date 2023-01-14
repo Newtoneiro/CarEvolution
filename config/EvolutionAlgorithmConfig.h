@@ -8,14 +8,14 @@ Cel: Plik zawierajacy zmienne konfiguracyjne dotyczace algorytmu ewolucyjnego
 */
 class EvolutionAlgorithmConfig {
 public:
-    static const unsigned int INITIAL_POPULATION_SIZE = 5;
-    static const unsigned int POPULATION_SIZE = 5;
-    static const unsigned int NO_EPOCHS = 10;
+    static const int INITIAL_POPULATION_SIZE = 5;
+    static const int POPULATION_SIZE = 5;
+    static const int NO_EPOCHS = 10;
     static constexpr float MUTATION_PROB = 0.9f;
     static constexpr float CROSSOVER_PROB = 0.5f;
 
-    static const unsigned int MAX_BODY_RADIUS_MUTATION = 5;
-    static const unsigned int MAX_WHEEL_RADIUS_MUTATION = 5;
+    static const int MAX_BODY_RADIUS_MUTATION = 5;
+    static const int MAX_WHEEL_RADIUS_MUTATION = 5;
 };
 
 #endif //CAREVOLUTION_EVOLUTIONALGORITHMCONFIG_H

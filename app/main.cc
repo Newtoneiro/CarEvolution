@@ -12,6 +12,8 @@ Purpose: This is a main file combining the logic and other aspects
          serving as presentation of app's purpose
 */
 int main() {
+
+    srand(EnvironmentConfig::SEED);
     EvolutionAlgorithm algorithm;
     WindowHandle windowHandle;
 
