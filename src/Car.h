@@ -46,7 +46,7 @@ public:
 
     int getTime() const noexcept { return _timer; };
 
-    bool isCarAlive() const noexcept { return isAlive; };
+    bool isCarAlive() const noexcept { return _isAlive; };
 
     Genome getGenome() const noexcept;
 
@@ -58,7 +58,7 @@ private:
     PCircle _rightCircle;
 
     int _timer = 0;
-    bool isAlive = true;
+    bool _isAlive = true;
 };
 
 

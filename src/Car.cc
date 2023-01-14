@@ -19,7 +19,7 @@ void Car::createBody() noexcept {
 }
 
 void Car::updateShape() noexcept {
-    if (isAlive) {
+    if (_isAlive) {
         _carBody->updateShape();
         _leftCircle->updateShape();
         _rightCircle->updateShape();
@@ -41,7 +41,7 @@ PCircle Car::getRightCircle() const noexcept {
 sf::Shape &Car::getShape() noexcept { return _carBody->getShape(); }
 
 void Car::setIsCarAlive(bool alive) noexcept {
-    isAlive = alive;
+    _isAlive = alive;
     getCarBody()->setIsAlive(alive);
     getLeftCircle()->setIsAlive(alive);
     getRightCircle()->setIsAlive(alive);

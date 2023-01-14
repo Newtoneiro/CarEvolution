@@ -9,25 +9,41 @@ Cel: Implementacja testów do klasy World
 
 typedef std::unique_ptr<World> PWorld;
 
-TEST(WorldTest, Constructor) {
+TEST(WorldTest, ConstructorTest) {
     PWorld world = std::make_unique<World>();
     EXPECT_TRUE(world != nullptr);
 }
 
-TEST(WorldTest, GenerateFloor) {
+TEST(WorldTest, GenerateFloorNumberOfElementsTest) {
+    PWorld world = std::make_unique<World>();
+    world->generateFloor();
+    ASSERT_EQ(world->getElements().size(), GroundConfig::GROUND_ELEMENTS_NUMBER);
+}
+
+TEST(WorldTest, GenerateFloorFirstElementTest) {
     PWorld world = std::make_unique<World>();
     world->generateFloor();
     auto firstElemPosition = world->getElements()[0]->getPosition();
-    EXPECT_TRUE(world->getElements().size() == GroundConfig::GROUND_ELEMENTS_NUMBER);
-    EXPECT_TRUE(firstElemPosition.x == GroundConfig::GROUND_STARTING_X + GroundConfig::GROUND_ELEMENT_WIDTH / 2);
-    EXPECT_TRUE(firstElemPosition.y == GroundConfig::GROUND_STARTING_Y);
-    EXPECT_TRUE(world->getElements()[0]->getShape().getRotation() == 0);
+    ASSERT_EQ(world->getElements().size(), GroundConfig::GROUND_ELEMENTS_NUMBER);
+    ASSERT_EQ(firstElemPosition.x, GroundConfig::GROUND_STARTING_X + GroundConfig::GROUND_ELEMENT_WIDTH / 2);
+    ASSERT_EQ(firstElemPosition.y, GroundConfig::GROUND_STARTING_Y);
+    ASSERT_EQ(world->getElements()[0]->getShape().getRotation(), 0);
+}
+
+TEST(WorldTest, GenerateFloorElementWithinMarginTest) {
+    PWorld world = std::make_unique<World>();
+    world->generateFloor();
     auto elementWithinMargin = world->getElements()[GroundConfig::GROUND_MARGIN - 1]->getPosition();
-    EXPECT_TRUE(elementWithinMargin.x == GroundConfig::GROUND_STARTING_X +
-                                         GroundConfig::GROUND_ELEMENT_WIDTH * (GroundConfig::GROUND_MARGIN - 1) +
-                                         GroundConfig::GROUND_ELEMENT_WIDTH / 2);
-    EXPECT_TRUE(elementWithinMargin.y == GroundConfig::GROUND_STARTING_Y);
-    EXPECT_TRUE(world->getElements()[GroundConfig::GROUND_MARGIN - 1]->getShape().getRotation() == 0);
+    ASSERT_EQ(elementWithinMargin.x, GroundConfig::GROUND_STARTING_X +
+                                     GroundConfig::GROUND_ELEMENT_WIDTH * (GroundConfig::GROUND_MARGIN - 1) +
+                                     GroundConfig::GROUND_ELEMENT_WIDTH / 2);
+    ASSERT_EQ(elementWithinMargin.y, GroundConfig::GROUND_STARTING_Y);
+    ASSERT_EQ(world->getElements()[GroundConfig::GROUND_MARGIN - 1]->getShape().getRotation(), 0);
+}
+
+TEST(WorldTest, GenerateFloorElementOutsideMarginTest) {
+    PWorld world = std::make_unique<World>();
+    world->generateFloor();
     auto elementOutsideMargin = world->getElements()[GroundConfig::GROUND_MARGIN]->getPosition();
     EXPECT_TRUE(elementOutsideMargin.x != GroundConfig::GROUND_STARTING_X +
                                           GroundConfig::GROUND_ELEMENT_WIDTH * (GroundConfig::GROUND_MARGIN) +
@@ -36,32 +52,25 @@ TEST(WorldTest, GenerateFloor) {
     EXPECT_TRUE(world->getElements()[GroundConfig::GROUND_MARGIN]->getShape().getRotation() != 0);
 }
 
-TEST(WorldTest, GenerateCar) {
+TEST(WorldTest, GenerateCarTest) {
     std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
     std::vector<float> wheelRadiuses = {1, 1};
     PWorld world = std::make_unique<World>();
     PCar testCar = std::make_shared<Car>(bodyRadiuses, wheelRadiuses);
-    EXPECT_TRUE(testCar != nullptr);
-    EXPECT_TRUE(testCar->getCarBody() != nullptr);
-    EXPECT_TRUE(testCar->getLeftCircle() != nullptr);
-    EXPECT_TRUE(testCar->getRightCircle() != nullptr);
     world->createCar(testCar);
-    EXPECT_TRUE(testCar->getCarBody()->getBody()->GetPosition().x == 0);
-    EXPECT_TRUE(testCar->getCarBody()->getBody()->GetPosition().y == 0);
-    EXPECT_TRUE(testCar->getCarBody()->getBody()->GetAngle() == 0);
-    EXPECT_TRUE(world->getElements().size() == 3);
+    ASSERT_EQ(world->getElements().size(), 3);
 }
 
-TEST(WorldTest, GenerateCars) {
+TEST(WorldTest, GenerateCarsTest) {
     const int carCount = 10;
     PWorld world = std::make_unique<World>();
     world->createCars(carCount);
     auto elements = world->getElements();
-    EXPECT_TRUE(elements.size() == 3 * carCount);
+    ASSERT_EQ(elements.size(), 3 * carCount);
 }
 
 
-TEST(WorldTest, UpdateCar) {
+TEST(WorldTest, UpdateCarTest) {
     std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
     std::vector<float> wheelRadiuses = {1, 1};
     PWorld world = std::make_unique<World>();
@@ -73,11 +82,13 @@ TEST(WorldTest, UpdateCar) {
     b2Vec2 oldCameraPosition = b2Vec2_zero;
     for (int i = 0; i < 100; ++i) {
         if (i == 10) {
+            world->updateCars();
             oldCameraPosition = world->getCameraPosition();
         }
         world->step();
-        world->updateCars();
     }
+    world->updateCars();
+    auto bestCar = world->updateCars();
     auto newBodyPosition = testCar->getCarBody()->getBody()->GetPosition();
     auto newRightWheelPosition = testCar->getRightCircle()->getBody()->GetPosition();
     auto newAngle = testCar->getCarBody()->getBody()->GetAngle();
@@ -86,9 +97,10 @@ TEST(WorldTest, UpdateCar) {
     EXPECT_TRUE(oldAngle != newAngle);
     EXPECT_TRUE(oldCameraPosition != newCameraPosition);
     EXPECT_TRUE(newCameraPosition == newRightWheelPosition);
+    EXPECT_TRUE(bestCar == testCar);
 }
 
-TEST(WorldTest, RespawnCars) {
+TEST(WorldTest, RespawnCarsTest) {
     std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
     std::vector<float> wheelRadiuses = {1, 1};
     std::vector<Genome> testGenome = {{bodyRadiuses, wheelRadiuses}};
@@ -104,4 +116,56 @@ TEST(WorldTest, RespawnCars) {
     world->respawnCars(testGenome);
     auto afterRespawnPosition = testCar->getCarBody()->getBody()->GetPosition();
     EXPECT_TRUE(beforeRespawnPosition != afterRespawnPosition);
+}
+
+TEST(WorldTest, UpdateShapeTest) {
+    std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
+    std::vector<float> wheelRadiuses = {1, 1};
+    PWorld world = std::make_unique<World>();
+    PCar testCar = std::make_shared<Car>(bodyRadiuses, wheelRadiuses);
+    world->createCar(testCar);
+    world->generateFloor();
+    auto oldCarBodyShapePos = testCar->getCarBody()->getShape().getPosition();
+    auto oldRightWheelShapePos = testCar->getRightCircle()->getShape().getPosition();
+    auto oldLeftWheelShapePos = testCar->getLeftCircle()->getShape().getPosition();
+    for (int i = 0; i < 100; ++i) {
+        world->step();
+    }
+    world->updateElements();
+    auto newCarBodyShapePos = testCar->getCarBody()->getShape().getPosition();
+    auto newRightWheelShapePos = testCar->getRightCircle()->getShape().getPosition();
+    auto newLeftWheelShapePos = testCar->getLeftCircle()->getShape().getPosition();
+    EXPECT_TRUE(oldCarBodyShapePos != newCarBodyShapePos);
+    EXPECT_TRUE(oldRightWheelShapePos != newRightWheelShapePos);
+    EXPECT_TRUE(oldLeftWheelShapePos != newLeftWheelShapePos);
+}
+
+TEST(WorldTest, CarTimeoutTest) {
+    std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
+    std::vector<float> wheelRadiuses = {1, 1};
+    PWorld world = std::make_unique<World>();
+    PCar testCar = std::make_shared<Car>(bodyRadiuses, wheelRadiuses);
+    world->createCar(testCar);
+    EXPECT_TRUE(testCar->isCarAlive());
+    EXPECT_TRUE(!world->isEndOfEpoch());
+    for (unsigned int i = 0; i < EnvironmentConfig::MAX_TIME_ALIVE + 20; ++i) {
+        testCar->timerStep();
+    }
+    testCar->getCarBody()->getBody()->SetLinearVelocity(b2Vec2_zero);
+    world->updateCars();
+    EXPECT_TRUE(!testCar->isCarAlive());
+    EXPECT_TRUE(world->isEndOfEpoch());
+}
+
+TEST(WorldTest, WorldCurrentPopulationTest) {
+    std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
+    std::vector<float> wheelRadiuses = {1, 1};
+    PWorld world = std::make_unique<World>();
+    PCar testCar = std::make_shared<Car>(bodyRadiuses, wheelRadiuses);
+    world->createCar(testCar);
+    auto population = world->getCurrentPopulation();
+    ASSERT_EQ(population.size(), 1);
+    ASSERT_EQ(population[0], testCar);
+    world->createCars(10);
+    ASSERT_EQ(world->getCurrentPopulation().size(), 11);
 }

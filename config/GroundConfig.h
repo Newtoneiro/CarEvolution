@@ -16,7 +16,7 @@ public:
     static const unsigned int GROUND_MARGIN = 10;
 
     static constexpr float MAX_STOPE = 80.0f;
-    static const unsigned int GROUND_ELEMENTS_NUMBER = 200;
+    static constexpr unsigned int GROUND_ELEMENTS_NUMBER = 200;
 };
 
 #endif //CAREVOLUTION_GROUNDCONFIG_H
