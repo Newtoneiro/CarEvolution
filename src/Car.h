@@ -19,24 +19,20 @@ typedef std::shared_ptr<CarBody> PCarBody;
 typedef std::shared_ptr<Circle> PCircle;
 typedef std::pair<std::vector<unsigned int>, std::vector<float>> Genome;
 
-class Car : public Figure {
+class Car{
 public:
     Car(const std::vector<unsigned int> &bodyRadiuses,
         const std::vector<float> &wheelRadiuses);
 
     ~Car() = default;
 
-    void createBody() noexcept override;
-
-    void updateShape() noexcept override;
+    void updateShape() noexcept;
 
     PCarBody getCarBody() const noexcept;
 
     PCircle getLeftCircle() const noexcept;
 
     PCircle getRightCircle() const noexcept;
-
-    sf::Shape &getShape() noexcept override;
 
     void timerStep() noexcept { ++_timer; };
 

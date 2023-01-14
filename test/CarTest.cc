@@ -38,6 +38,19 @@ TEST(CarTest, WorldCreateBodyTest) {
     ASSERT_EQ(testCar->getCarBody()->getBody()->GetAngle(), 0);
 }
 
+TEST(CarTest, SetIsCarAliveTest) {
+    std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
+    std::vector<float> wheelRadiuses = {1, 1};
+
+    PCar car = std::make_unique<Car>(bodyRadiuses, wheelRadiuses);
+    EXPECT_TRUE(car->isCarAlive() == true);
+    EXPECT_TRUE(car->getCarBody()->getShape().getFillColor() == sf::Color::White);
+
+    car->setIsCarAlive(false);
+    EXPECT_TRUE(car->isCarAlive() == false);
+    EXPECT_TRUE(car->getCarBody()->getShape().getFillColor() == sf::Color::Blue);
+}
+
 TEST(CarTest, CreateBodyTest) {
     std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
     std::vector<float> wheelRadiuses = {1, 1};

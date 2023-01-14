@@ -12,12 +12,6 @@ Car::Car(const std::vector<unsigned int> &bodyRadiuses,
     _rightCircle = std::make_shared<Circle>(wheelRadiuses[1], _carBody->getRightWheel().x, _carBody->getRightWheel().y);
 }
 
-void Car::createBody() noexcept {
-    _carBody->createBody();
-    _leftCircle->createBody();
-    _rightCircle->createBody();
-}
-
 void Car::updateShape() noexcept {
     if (_isAlive) {
         _carBody->updateShape();
@@ -37,8 +31,6 @@ PCircle Car::getLeftCircle() const noexcept {
 PCircle Car::getRightCircle() const noexcept {
     return _rightCircle;
 }
-
-sf::Shape &Car::getShape() noexcept { return _carBody->getShape(); }
 
 void Car::setIsCarAlive(bool alive) noexcept {
     _isAlive = alive;
