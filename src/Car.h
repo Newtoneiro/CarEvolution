@@ -10,11 +10,9 @@
 #include "../config/EnvironmentConfig.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik naglowkowy samochodu - obiektu reprezentującego
-    samochod
+Author: Bartosz Latosek
+Purpose: A header file of Car entity - main evolution target of the code
 */
-
 typedef std::shared_ptr<Figure> PFigure;
 typedef std::shared_ptr<CarBody> PCarBody;
 typedef std::shared_ptr<Circle> PCircle;

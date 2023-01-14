@@ -2,9 +2,8 @@
 #include "WindowHandle.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik z implementacja WindowHandle - dekoratora do kontrolowania wyswietlania
-     swiata.
+Author: Bartosz Latosek
+Purpose: File with implementation of WindowHandle - decorator that makes it easier to manage window
 */
 WindowHandle::WindowHandle() noexcept
         : sf::RenderWindow(sf::VideoMode({EnvironmentConfig::WINDOW_WIDTH, EnvironmentConfig::WINDOW_HEIGHT}),

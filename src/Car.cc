@@ -1,9 +1,8 @@
 #include "Car.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik implementujący samochod - obiektu reprezentującego
-     samochod
+Author: Bartosz Latosek
+Purpose: A file containing implementation of Car entity - main evolution target of the code
 */
 Car::Car(const std::vector<unsigned int> &bodyRadiuses,
          const std::vector<float> &wheelRadiuses) {

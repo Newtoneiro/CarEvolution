@@ -10,9 +10,8 @@
 #include "../src/Figure.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik naglowkowy WindowHandle - dekoratora do kontrolowania wyswietlania
-     swiata.
+Author: Bartosz Latosek
+Purpose: Header file for WindowHandle - decorator that makes it easier to manage window
 */
 typedef std::shared_ptr<Figure> PFigure;
 

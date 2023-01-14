@@ -6,10 +6,9 @@
 #include "../config/EnvironmentConfig.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Implementacja testów do klasy Car
+Author: Radoslaw Kostrzewski
+Purpose: Unit tests for WindowHandle class
 */
-
 typedef std::unique_ptr<WindowHandle> PWindowHandle;
 
 TEST(WindowHandleTest, ContructorTest) {

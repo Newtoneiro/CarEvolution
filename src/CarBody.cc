@@ -1,9 +1,8 @@
 #include "CarBody.h"
 
 /*
-Autor: Radoslaw Kostrzewski
-Cel: Plik implementujący ciało samochodu - obiektu reprezentującego
-     kształt samochodu
+Author: Bartosz Latosek
+Purpose: A file containing implementation of CarBody - entity representing polynomial shape of car's body
 */
 void CarBody::createBody() {
     b2PolygonShape shape;

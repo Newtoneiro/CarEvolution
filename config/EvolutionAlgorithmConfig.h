@@ -3,8 +3,8 @@
 #define CAREVOLUTION_EVOLUTIONALGORITHMCONFIG_H
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik zawierajacy zmienne konfiguracyjne dotyczace algorytmu ewolucyjnego
+Author: Bartosz Latosek
+Purpose: Configurational file with constants related to Evolutional Algorithm and it's parameters
 */
 class EvolutionAlgorithmConfig {
 public:

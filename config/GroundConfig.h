@@ -2,8 +2,8 @@
 #define CAREVOLUTION_GROUNDCONFIG_H
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik zawierajacy zmienne konfiguracyjne dotyczace Podlogi
+Author: Bartosz Latosek
+Purpose: Configurational file with constants related to world's ground
 */
 class GroundConfig {
 public:

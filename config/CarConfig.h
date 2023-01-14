@@ -2,8 +2,8 @@
 #define CAREVOLUTION_CARCONFIG_H
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik zawierajacy zmienne konfiguracyjne dotyczace Samochodow
+Author: Bartosz Latosek
+Purpose: Configurational file with constants related to Cars
 */
 class CarConfig {
 public:

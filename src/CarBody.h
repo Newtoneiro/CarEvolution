@@ -7,9 +7,8 @@
 #include "Figure.h"
 
 /*
-Autor: Radosław Kostrzewski
-Cel: Plik naglowkowy ciała samochodu - obiektu reprezentującego
-     kształt samochodu
+Author: Radosław Kostrzewski
+Purpose: Header file of CarBody - class representing the polygon shape car body
 */
 class CarBody : public Figure {
 public:

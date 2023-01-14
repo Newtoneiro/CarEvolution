@@ -4,10 +4,9 @@
 #include "../src/World.h"
 
 /*
-Autor: Radosław Kostrzewski
-Cel: Implementacja testów do klasy Circle
+Author: Radoslaw Kostrzewski
+Purpose: Unit tests for Circle class
 */
-
 typedef std::shared_ptr<Circle> TestCircle;
 typedef std::shared_ptr<World> TestWorld;
 

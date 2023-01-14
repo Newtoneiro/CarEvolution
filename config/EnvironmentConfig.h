@@ -3,8 +3,8 @@
 #define CAREVOLUTION_ENVIRONMENTCONFIG_H
 
 /*
-Autor: Bartosz Latosek
-Cel: Plik zawierajacy zmienne konfiguracyjne dotyczace srodowiska i fizyki
+Author: Bartosz Latosek
+Purpose: Configurational file with constants related to enviroment and physics
 */
 class EnvironmentConfig {
 public:

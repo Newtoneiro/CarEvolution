@@ -1,10 +1,9 @@
 #include "GroundElement.h"
 
 /*
-Autor: Radoslaw Kostrzewski
-Cel: Plik implementujacy podloge - staly element
-     bedacy przeszkoda dla dynamicznych obiektow i
-     oddzialujacy z nimi
+Author: Radoslaw Kostrzewski
+Purpose: This is file containing the implementation of single ground block - a static rectangle
+         that serves as a wall stoping dynamic objects from moving and interacting with them
 */
 GroundElement::GroundElement(float posX, float posY, float rotation) : Figure() {
     bodyDef.type = b2_staticBody;

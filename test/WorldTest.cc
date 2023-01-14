@@ -3,10 +3,9 @@
 #include "../src/World.h"
 
 /*
-Autor: Radosław Kostrzewski
-Cel: Implementacja testów do klasy World
+Author: Radoslaw Kostrzewski
+Purpose: Unit tests for World class
 */
-
 typedef std::unique_ptr<World> PWorld;
 
 TEST(WorldTest, ConstructorTest) {

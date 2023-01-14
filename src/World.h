@@ -19,7 +19,6 @@ Author: Radoslaw Kostrzewski
 Purpose: This is the header file of world class responsible for
          providing a space for objects to interact with eachother
 */
-
 typedef std::shared_ptr<b2World> Pb2World;
 typedef std::shared_ptr<Figure> PFigure;
 typedef std::shared_ptr<Car> PCar;

@@ -3,8 +3,8 @@
 #include "../src/EvolutionAlgorithm.h"
 
 /*
-Autor: Bartosz latosek
-Cel: Implementacja testów do klasy EvolutionAlgorithm
+Author: Bartosz Latosek
+Purpose: Unit tests for Evolution algorithm class
 */
 TEST(EvolutionAlgorithmTest, ConstructorTest) {
     EvolutionAlgorithm algorithm;

@@ -5,8 +5,8 @@
 #include "../src/World.h"
 
 /*
-Autor: Bartosz Latosek
-Cel: Implementacja testów do klasy Car
+Author: Bartosz Latosek
+Purpose: Unit tests for Car class
 */
 typedef std::shared_ptr<World> PWorld;
 
