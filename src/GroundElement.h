@@ -28,7 +28,6 @@ public:
     sf::Shape &getShape() override;
 
 private:
-
     sf::RectangleShape shape;
 };
 

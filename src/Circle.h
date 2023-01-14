@@ -19,21 +19,21 @@ public:
 
     Circle(float radius, float posX, float posY);
 
-    float getRadius() const;
-
     void createBody() override;
+    
+    void setIsAlive(const bool val) noexcept { isAlive = val; };
 
     void updateShape() override;
+
+    float getRadius() const;
 
     sf::Shape & getShape() override { return shape; };
 
     bool isCircleAlive() const noexcept { return isAlive; };
 
-    void setIsAlive(const bool val) noexcept { isAlive = val; };
-
 private:
-    sf::CircleShape shape;
     bool isAlive = true;
+    sf::CircleShape shape;
     float radius;
 };
 

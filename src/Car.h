@@ -29,17 +29,17 @@ public:
 
     void updateShape() noexcept;
 
-    PCarBody getCarBody() const noexcept;
-
-    PCircle getLeftCircle() const noexcept;
-
-    PCircle getRightCircle() const noexcept;
-
     void timerStep() noexcept { ++timer; };
 
     void timerReset() noexcept { timer = 0; };
 
     void setIsCarAlive(bool alive) noexcept;
+
+    PCarBody getCarBody() const noexcept;
+
+    PCircle getLeftCircle() const noexcept;
+
+    PCircle getRightCircle() const noexcept;
 
     int getTime() const noexcept { return timer; };
 

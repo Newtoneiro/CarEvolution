@@ -17,17 +17,17 @@ public:
 
     virtual ~Figure();
 
+    virtual void createBody() = 0;
+
+    virtual void updateShape() = 0;
+
+    void setBody(b2Body *newBody);
+    
     b2Vec2 getPosition();
 
     b2Body *getBody();
 
-    void setBody(b2Body *newBody);
-
     b2BodyDef getBodyDef();
-
-    virtual void createBody() = 0;
-
-    virtual void updateShape() = 0;
 
     virtual sf::Shape &getShape() = 0;
 

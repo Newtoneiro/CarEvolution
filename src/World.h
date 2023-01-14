@@ -42,8 +42,6 @@ public:
 
     void updateElements();
 
-    std::vector<PFigure> getElements();
-
     void step();
 
     void generateFloor();
@@ -51,6 +49,8 @@ public:
     void respawnCars(const std::vector<Genome> &newPopulationGenome) noexcept;
 
     void setEndOfEpoch(const bool val) noexcept { endOfEpoch = val; }
+
+    std::vector<PFigure> getElements();
 
     bool isEndOfEpoch() const noexcept { return endOfEpoch; }
 

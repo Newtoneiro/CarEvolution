@@ -32,7 +32,7 @@ int main() {
         }
 
         b2Vec2 viewPos = algorithm.updateWorld();
-        windowHandle.step(viewPos, algorithm.getWorldElements(), algorithm.epoch());
+        windowHandle.step(viewPos, algorithm.getWorldElements(), algorithm.getCurEpoch());
     }
     return EXIT_SUCCESS;
 }

@@ -19,6 +19,8 @@ public:
 
     void updateShape() override;
 
+    void setIsAlive(const bool val) noexcept { isAlive = val; };
+
     b2Vec2 getLeftWheel();
 
     b2Vec2 getRightWheel();
@@ -29,13 +31,11 @@ public:
 
     bool isBodyAlive() const noexcept { return isAlive; };
 
-    void setIsAlive(const bool val) noexcept { isAlive = val; };
 private:
+    bool isAlive = true;
     std::vector<unsigned int> genome;
     b2Vec2 points[8];
     sf::ConvexShape shape;
-    
-    bool isAlive = true;
 };
 
 #endif //CAREVOLUTION_CARBODY_H
