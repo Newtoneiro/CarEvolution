@@ -6,8 +6,6 @@
 Autor: Bartosz latosek
 Cel: Implementacja testów do klasy EvolutionAlgorithm
 */
-
-
 TEST(EvolutionAlgorithmTest, ConstructorTest) {
     EvolutionAlgorithm algorithm;
     algorithm.init();
@@ -24,4 +22,10 @@ TEST(EvolutionAlgorithmTest, UpdateWorldTest) {
 
     ASSERT_NEAR(view_pos.x, 150, 50);
     ASSERT_NEAR(view_pos.y, 150, 50);
+}
+
+TEST(EvolutionAlgorithmTest, GenerateNewEpochTest) {
+    EvolutionAlgorithm algorithm;
+    algorithm.init();
+
 }

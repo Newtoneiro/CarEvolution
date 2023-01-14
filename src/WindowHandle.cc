@@ -32,7 +32,7 @@ void WindowHandle::step(const b2Vec2 view_pos, const std::vector<PFigure> elemen
 
 void WindowHandle::displayText(int epoch, float distance) {
     std::ostringstream oss;
-    oss << "Current epoch: " << epoch << " Current distacne: " << distance;
+    oss << "Current epoch: " << epoch << " Current distance: " << distance;
     std::string text = oss.str();
     setTitle(text);
 }

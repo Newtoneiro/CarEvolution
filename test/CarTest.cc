@@ -43,12 +43,12 @@ TEST(CarTest, SetIsCarAliveTest) {
     std::vector<float> wheelRadiuses = {1, 1};
 
     PCar car = std::make_unique<Car>(bodyRadiuses, wheelRadiuses);
-    EXPECT_TRUE(car->isCarAlive() == true);
-    EXPECT_TRUE(car->getCarBody()->getShape().getFillColor() == sf::Color::White);
+    EXPECT_TRUE(car->isCarAlive());
+    ASSERT_EQ(car->getCarBody()->getShape().getFillColor(), sf::Color::White);
 
     car->setIsCarAlive(false);
     EXPECT_TRUE(car->isCarAlive() == false);
-    EXPECT_TRUE(car->getCarBody()->getShape().getFillColor() == sf::Color::Blue);
+    ASSERT_EQ(car->getCarBody()->getShape().getFillColor(), sf::Color::Blue);
 }
 
 TEST(CarTest, CreateBodyTest) {
@@ -102,5 +102,4 @@ TEST(CarTest, UpdateShapeTest) {
     testCar->updateShape();
     ASSERT_EQ(testCar->getCarBody()->getShape().getPosition().x, 1);
     ASSERT_EQ(testCar->getCarBody()->getShape().getPosition().y, 1);
-
 }

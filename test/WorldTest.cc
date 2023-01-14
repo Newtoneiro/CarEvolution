@@ -69,7 +69,6 @@ TEST(WorldTest, GenerateCarsTest) {
     ASSERT_EQ(elements.size(), 3 * carCount);
 }
 
-
 TEST(WorldTest, UpdateCarTest) {
     std::vector<unsigned int> bodyRadiuses = {1, 1, 1, 1, 1, 1, 1, 1};
     std::vector<float> wheelRadiuses = {1, 1};
