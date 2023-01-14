@@ -11,7 +11,7 @@ TEST(EvolutionAlgorithmTest, ConstructorTest) {
     algorithm.init();
     ASSERT_EQ(algorithm.getWorldElements().size(),
               (EvolutionAlgorithmConfig::INITIAL_POPULATION_SIZE * 3) + GroundConfig::GROUND_ELEMENTS_NUMBER);
-    ASSERT_EQ(algorithm.epoch(), 0);
+    ASSERT_EQ(algorithm.getCurEpoch(), 0);
     EXPECT_TRUE(!algorithm.isDone());
 }
 
@@ -27,5 +27,4 @@ TEST(EvolutionAlgorithmTest, UpdateWorldTest) {
 TEST(EvolutionAlgorithmTest, GenerateNewEpochTest) {
     EvolutionAlgorithm algorithm;
     algorithm.init();
-
 }
