@@ -7,4 +7,5 @@ then
     cmake -S . -B ./$BUILD_DIR
 fi
 
+cmake --build $BUILD_DIR --target Tests -j 9
 cmake --build $BUILD_DIR --target CarEvolution -j 9
