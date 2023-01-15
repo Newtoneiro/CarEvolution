@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "../src/World.h"
+#include "../config/GroundConfig.h"
 
 /*
 Author: Radoslaw Kostrzewski

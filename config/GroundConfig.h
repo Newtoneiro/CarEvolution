@@ -13,10 +13,10 @@ public:
     static constexpr float GROUND_STARTING_X = -500.0f;
     static constexpr float GROUND_STARTING_Y = 400.0f;
 
-    static const int GROUND_MARGIN = 20;
+    static constexpr int GROUND_MARGIN = 20;
 
     static constexpr float MAX_STOPE = 60.0f;
-    static const int GROUND_ELEMENTS_NUMBER = 220;
+    static constexpr int GROUND_ELEMENTS_NUMBER = 220;
 };
 
 #endif //CAREVOLUTION_GROUNDCONFIG_H

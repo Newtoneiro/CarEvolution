@@ -48,6 +48,10 @@ TEST(CarTest, SetIsCarAliveTest) {
     car->setIsCarAlive(false);
     EXPECT_TRUE(car->isCarAlive() == false);
     ASSERT_EQ(car->getCarBody()->getShape().getFillColor(), sf::Color::Blue);
+
+    car->setIsCarAlive(true);
+    EXPECT_TRUE(car->isCarAlive() == true);
+    ASSERT_EQ(car->getCarBody()->getShape().getFillColor(), sf::Color::White);
 }
 
 TEST(CarTest, CreateBodyTest) {
