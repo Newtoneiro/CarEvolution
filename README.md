@@ -23,7 +23,18 @@ upewnić się, że jest on zainstalowany poprawnie w wymaganej wersji.
 ## Uruchomienie
 
 Po zbudowaniu programu, w katalogu ```bin``` pojawią się dwa pliki wykonywalne - ```CarEvolution```
-oraz ```ExampleTests```.
+oraz ```Tests```.
 W celu uruchomienia programu należy uruchomić plik wykonywalny CarEvolution, natomiast w celu uruchomienia przykładowych
 testów należy uruchomić
 ExampleTests.
+
+## Pokrycie kodu testami
+
+Pliki z pokryciem kodu testami znajdują się już w repozytorium,
+jednak jeśli chcemy je wygenerować samodzielnie, należy wykonać poniższe kroki:
+
+1. Zainstalować paczkę ```lcov```.
+2. Uruchomić skrypt ```coverage.sh```.
+
+Po wykonaniu skrytpu utworzy on katalog ```Coverage``` w którym pojawią się pliki z infomacją na temat pokrycia.
+Aby je wyświetlić należy otworzyć plik ```index.html``` w przeglądarce.
