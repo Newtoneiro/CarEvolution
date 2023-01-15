@@ -18,7 +18,7 @@ typedef std::shared_ptr<CarBody> PCarBody;
 typedef std::shared_ptr<Circle> PCircle;
 typedef std::pair<std::vector<unsigned int>, std::vector<float>> Genome;
 
-class Car{
+class Car {
 public:
     Car(const std::vector<unsigned int> &bodyRadiuses,
         const std::vector<float> &wheelRadiuses);
@@ -27,9 +27,9 @@ public:
 
     void updateShape() noexcept;
 
-    void timerStep() noexcept { ++timer; };
+    void timerStep() noexcept { ++timer_; };
 
-    void timerReset() noexcept { timer = 0; };
+    void timerReset() noexcept { timer_ = 0; };
 
     void setIsCarAlive(bool alive) noexcept;
 
@@ -39,21 +39,21 @@ public:
 
     PCircle getRightCircle() const noexcept;
 
-    int getTime() const noexcept { return timer; };
+    int getTime() const noexcept { return timer_; };
 
-    bool isCarAlive() const noexcept { return isAlive; };
+    bool isCarAlive() const noexcept { return isAlive_; };
 
     Genome getGenome() const noexcept;
 
     std::vector<float> getWheelsGenome() const noexcept;
 
 private:
-    PCarBody carBody;
-    PCircle leftCircle;
-    PCircle rightCircle;
+    PCarBody carBody_;
+    PCircle leftCircle_;
+    PCircle rightCircle_;
 
-    int timer = 0;
-    bool isAlive = true;
+    int timer_ = 0;
+    bool isAlive_ = true;
 };
 
 

@@ -12,10 +12,9 @@ Purpose: This is a main file combining the logic and other aspects
          serving as presentation of app's purpose
 */
 int main() {
-    if (EnvironmentConfig::SEED == 0){
-        srand(time(0));   
-    }
-    else{
+    if (EnvironmentConfig::SEED == 0) {
+        srand(time(0));
+    } else {
         srand(EnvironmentConfig::SEED);
     }
 
@@ -34,5 +33,7 @@ int main() {
         b2Vec2 viewPos = algorithm.updateWorld();
         windowHandle.step(viewPos, algorithm.getWorldElements(), algorithm.getCurEpoch());
     }
+
+
     return EXIT_SUCCESS;
 }

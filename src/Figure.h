@@ -21,19 +21,19 @@ public:
 
     virtual void updateShape() = 0;
 
+    virtual sf::Shape &getShape() = 0;
+
     void setBody(b2Body *newBody);
-    
+
     b2Vec2 getPosition();
 
     b2Body *getBody();
 
     b2BodyDef getBodyDef();
 
-    virtual sf::Shape &getShape() = 0;
-
 protected:
-    b2BodyDef bodyDef;
-    b2Body *body;
+    b2BodyDef bodyDef_;
+    b2Body *body_;
 };
 
 #endif // CAREVOLUTION_FIGURE_H

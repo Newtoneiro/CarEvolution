@@ -20,21 +20,21 @@ public:
     Circle(float radius, float posX, float posY);
 
     void createBody() override;
-    
-    void setIsAlive(const bool val) noexcept { isAlive = val; };
 
     void updateShape() override;
 
+    sf::Shape &getShape() override { return shape_; };
+
     float getRadius() const;
 
-    sf::Shape & getShape() override { return shape; };
+    void setIsAlive(const bool val) noexcept { isAlive_ = val; };
 
-    bool isCircleAlive() const noexcept { return isAlive; };
+    bool isCircleAlive() const noexcept { return isAlive_; };
 
 private:
-    bool isAlive = true;
-    sf::CircleShape shape;
-    float radius;
+    bool isAlive_ = true;
+    sf::CircleShape shape_;
+    float radius_;
 };
 
 #endif // CAREVOLUTION_CIRCLE_H

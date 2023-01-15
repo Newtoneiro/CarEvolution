@@ -3,6 +3,11 @@
 
 #include <string>
 
+/*
+Author: Radosław Kostrzewski
+Purpose: This is a file including enum with all the categories of figures
+*/
+
 enum FigureCategories {
     carBodyCategory = 1,
     circleCategory = 2,

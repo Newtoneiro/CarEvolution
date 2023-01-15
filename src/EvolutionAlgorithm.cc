@@ -8,44 +8,54 @@ Purpose: This is a implementation file for representation of Evolution Algorithm
 
 void EvolutionAlgorithm::init() noexcept {
     World newWorld;
-    world = std::make_shared<World>(newWorld);
-    world->createCars(EvolutionAlgorithmConfig::INITIAL_POPULATION_SIZE);
-    world->generateFloor();
+    world_ = std::make_shared<World>(newWorld);
+    world_->createCars(EvolutionAlgorithmConfig::INITIAL_POPULATION_SIZE);
+    world_->generateFloor();
 }
 
 b2Vec2 EvolutionAlgorithm::updateWorld() noexcept {
     worldStep();
-    PCar eliteCar = world->updateCars();
-    if (world->isEndOfEpoch()) {
-        generateNewEpoch(eliteCar);
-        ++curEpoch;
-        if (curEpoch == EvolutionAlgorithmConfig::NO_EPOCHS) {
-            done = true;
+    PCar eliteCar = world_->updateCars();
+    if (world_->isEndOfEpoch()) {
+        ++curEpoch_;
+        if (curEpoch_ == EvolutionAlgorithmConfig::NO_EPOCHS) {
+            done_ = true;
+            printf("Best found genome:\n");
+            printf("Body radiuses: ");
+            for (auto gene: eliteCar->getGenome().first) {
+                printf("%d, ", gene);
+            }
+            printf("\nWheel radiuses: ");
+            for (auto gene: eliteCar->getGenome().second) {
+                printf("%f, ", gene);
+            }
+            printf("\nBest distance: %f\n", eliteCar->getCarBody()->getPosition().x);
         }
+        generateNewEpoch(eliteCar);
     }
-    return world->getCameraPosition();
+    return world_->getCameraPosition();
 }
 
 std::vector<PFigure> EvolutionAlgorithm::getWorldElements() noexcept {
-    return world->getElements();
+    return world_->getElements();
 }
 
 void EvolutionAlgorithm::worldStep() noexcept {
-    world->step();
-    world->updateElements();
+    world_->step();
+    world_->updateElements();
 }
 
 void EvolutionAlgorithm::generateNewEpoch(const PCar eliteCar) noexcept {
     std::vector<Genome> newPopulationGenome;
 
-    selection(newPopulationGenome, world->getCurrentPopulation());
+    selection(newPopulationGenome, world_->getCurrentPopulation());
     crossover(newPopulationGenome);
     mutation(newPopulationGenome);
 
     newPopulationGenome.push_back(eliteCar->getGenome());
 
-    world->respawnCars(newPopulationGenome);
-    world->setEndOfEpoch(false);
+    world_->respawnCars(newPopulationGenome);
+    world_->setEndOfEpoch(false);
 }
 
 void EvolutionAlgorithm::selection(std::vector<Genome> &newPopulationGenome,

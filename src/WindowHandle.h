@@ -24,8 +24,8 @@ public:
 private:
     void displayText(int epoch, float distance);
 
-    std::unique_ptr<sf::View> view;
-    std::unique_ptr<sf::Text> textTemplate;
+    std::unique_ptr<sf::View> view_;
+    std::unique_ptr<sf::Text> textTemplate_;
 };
 
 

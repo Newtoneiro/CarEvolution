@@ -47,13 +47,13 @@ public:
 
     void respawnCars(const std::vector<Genome> &newPopulationGenome) noexcept;
 
-    void setEndOfEpoch(const bool val) noexcept { endOfEpoch = val; }
+    void setEndOfEpoch(const bool val) noexcept { endOfEpoch_ = val; }
 
     std::vector<PFigure> getElements();
 
-    bool isEndOfEpoch() const noexcept { return endOfEpoch; }
+    bool isEndOfEpoch() const noexcept { return endOfEpoch_; }
 
-    std::vector<PCar> getCurrentPopulation() const noexcept { return cars; };
+    std::vector<PCar> getCurrentPopulation() const noexcept { return cars_; };
 
     b2Vec2 getCameraPosition();
 
@@ -64,13 +64,13 @@ private:
 
     static void checkIfCarIsAlive(const PCar &car);
 
-    Pb2World world;
-    std::vector<PFigure> elements;
-    std::vector<PFigure> ground;
-    std::vector<PCar> cars;
-    std::vector<PJoint> joints;
-    bool endOfEpoch = false;
-    PCar bestAliveCar;
+    Pb2World world_;
+    std::vector<PFigure> elements_;
+    std::vector<PFigure> ground_;
+    std::vector<PCar> cars_;
+    std::vector<PJoint> joints_;
+    bool endOfEpoch_ = false;
+    PCar bestAliveCar_;
 };
 
 #endif // CAREVOLUTION_WORLD_H

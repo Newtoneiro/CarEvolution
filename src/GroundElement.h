@@ -28,7 +28,7 @@ public:
     sf::Shape &getShape() override;
 
 private:
-    sf::RectangleShape shape;
+    sf::RectangleShape shape_;
 };
 
 #endif // CAREVOLUTION_GROUNDELEMENT_HPP

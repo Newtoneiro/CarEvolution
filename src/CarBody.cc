@@ -6,7 +6,7 @@ Purpose: A file containing implementation of CarBody - entity representing polyn
 */
 void CarBody::createBody() {
     b2PolygonShape shape;
-    shape.Set(points, 8);
+    shape.Set(points_, 8);
     b2FixtureDef fixture;
     fixture.shape = &shape;
     fixture.density = EnvironmentConfig::FIGURE_DENSITY;
@@ -14,40 +14,40 @@ void CarBody::createBody() {
     fixture.restitution = EnvironmentConfig::FIGURE_RESTITUTION;
     fixture.filter.categoryBits = FigureCategories(carBodyCategory);
     fixture.filter.maskBits = FigureCategories(groundCategory);
-    body->CreateFixture(&fixture);
+    body_->CreateFixture(&fixture);
 }
 
 void CarBody::updateShape() {
     if (isBodyAlive()) {
-        b2Vec2 position = body->GetPosition();
-        float angle = body->GetAngle();
-        shape.setPosition(sf::Vector2f(position.x, position.y));
-        shape.setRotation((angle / (float) M_PI) * 180);
+        b2Vec2 position = body_->GetPosition();
+        float angle = body_->GetAngle();
+        shape_.setPosition(sf::Vector2f(position.x, position.y));
+        shape_.setRotation((angle / (float) M_PI) * 180);
     }
 }
 
 b2Vec2 CarBody::getLeftWheel() {
-    return points[3];
+    return points_[3];
 }
 
 b2Vec2 CarBody::getRightWheel() {
-    return points[1];
+    return points_[1];
 }
 
-sf::Shape &CarBody::getShape() { return shape; }
+sf::Shape &CarBody::getShape() { return shape_; }
 
 CarBody::CarBody(const std::vector<unsigned int> &bodyRadiuses) : Figure() {
-    bodyDef.type = b2_dynamicBody;
-    shape.setPointCount(bodyRadiuses.size());
-    genome = bodyRadiuses;
+    bodyDef_.type = b2_dynamicBody;
+    shape_.setPointCount(bodyRadiuses.size());
+    genome_ = bodyRadiuses;
 
     const b2Vec2 center(100, 100);
     float angle = 0.f;
     int i = 0;
     for (auto radius: bodyRadiuses) {
         b2Vec2 newPoint(center.x + radius * cos(angle), center.y + radius * sin(angle));
-        points[i] = newPoint;
-        shape.setPoint(i, sf::Vector2f(newPoint.x, newPoint.y));
+        points_[i] = newPoint;
+        shape_.setPoint(i, sf::Vector2f(newPoint.x, newPoint.y));
         angle += M_PI / 4;
         ++i;
     }
