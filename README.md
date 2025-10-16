@@ -1,5 +1,7 @@
 # CarEvolution
 
+<img width="806" height="582" alt="image" src="https://github.com/user-attachments/assets/218c3774-d6af-44da-9ff0-6856db482fc6" />
+
 ## Instalacja
 
 Do zbudowania projektu potrzebujemy dwóch paczek:
